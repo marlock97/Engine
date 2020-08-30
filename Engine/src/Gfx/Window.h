@@ -1,18 +1,22 @@
 #include <Windows.h>
 
+#ifndef UNICODE
+#define UNICODE
+#endif 
+
 class Window
 {
 public:
-		Window();
-
+		//Window();
+		
 
 private:
-
+	
 };
 
 class WindowManager
 {
 public:
-		Initialize();
-		GetMainWindow()
+		//void Initialize();
+		//void GetMainWindow();
 };
