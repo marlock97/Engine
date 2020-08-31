@@ -143,15 +143,25 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp" />
+    <ClCompile Include="src\Core\Base.cpp" />
+    <ClCompile Include="src\Core\Rtti.cpp" />
     <ClCompile Include="src\Gfx\glad.c" />
     <ClCompile Include="src\Gfx\Window.cpp" />
     <ClCompile Include="src\Main.cpp" />
+    <ClCompile Include="src\Utils\Serialization\JSON\JSONSerializer.cpp" />
     <ClCompile Include="src\Utils\Utils.cpp" />
+    <ClCompile Include="System.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="DataTypes.h" />
     <ClInclude Include="src\Application\Application.h" />
+    <ClInclude Include="src\Core\Base.h" />
+    <ClInclude Include="src\Core\Rtti.h" />
     <ClInclude Include="src\Gfx\Window.h" />
+    <ClInclude Include="src\Utils\Serialization\ISerializer.h" />
+    <ClInclude Include="src\Utils\Serialization\JSON\JSONSerializer.h" />
     <ClInclude Include="src\Utils\Utils.h" />
+    <ClInclude Include="System.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment.shader" />

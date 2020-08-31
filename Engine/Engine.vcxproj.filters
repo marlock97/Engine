@@ -25,6 +25,15 @@
     <Filter Include="src\Utils">
       <UniqueIdentifier>{ad405e85-f65e-4311-bdce-96d1bf8b3f14}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Core">
+      <UniqueIdentifier>{b4e4384e-0caf-4c39-8498-f9b80e4bf0a7}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utils\Serialization">
+      <UniqueIdentifier>{fd025689-9553-4ec1-b7c3-432e7c6855ed}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Utils\Serialization\JSON">
+      <UniqueIdentifier>{c65598dc-02fe-4c95-8cad-28fa50a87ab2}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Main.cpp">
@@ -42,6 +51,18 @@
     <ClCompile Include="src\Gfx\glad.c">
       <Filter>src\Gfx</Filter>
     </ClCompile>
+    <ClCompile Include="System.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Base.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Core\Rtti.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Utils\Serialization\JSON\JSONSerializer.cpp">
+      <Filter>src\Utils\Serialization\JSON</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h">
@@ -52,6 +73,24 @@
     </ClInclude>
     <ClInclude Include="src\Utils\Utils.h">
       <Filter>src\Utils</Filter>
+    </ClInclude>
+    <ClInclude Include="DataTypes.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="System.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Base.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Rtti.h">
+      <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Serialization\ISerializer.h">
+      <Filter>src\Utils\Serialization</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Utils\Serialization\JSON\JSONSerializer.h">
+      <Filter>src\Utils\Serialization\JSON</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
