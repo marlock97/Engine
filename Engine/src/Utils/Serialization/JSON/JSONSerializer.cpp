@@ -12,7 +12,8 @@
 /************************************************************************/
 
 #include "JSONSerializer.h"
-#include  <fstream>
+#include <iostream>
+#include <fstream>
 
 #ifndef FOR_EACH
 #define FOR_EACH(itName, container)												\
@@ -36,7 +37,7 @@ namespace Engine
 		FOR_EACH(child, mChildNodes)
 		{
 			JSONSerializer * childNode = *child;
-			if (childNode->mName == name && childNode->mValue.isInt())
+			if (childNode->name_ == name && childNode->mValue.isInt())
 			{
 				out = childNode->mValue.asInt();
 			}
@@ -48,7 +49,7 @@ namespace Engine
 		FOR_EACH(child, mChildNodes)
 		{
 			JSONSerializer * childNode = *child;
-			if (childNode->mName == name && childNode->mValue.isUInt())
+			if (childNode->name_ == name && childNode->mValue.isUInt())
 			{
 				out = childNode->mValue.asUInt();
 			}
@@ -60,7 +61,7 @@ namespace Engine
 		FOR_EACH(child, mChildNodes)
 		{
 			JSONSerializer * childNode = *child;
-			if (childNode->mName == name && childNode->mValue.isDouble())
+			if (childNode->name_ == name && childNode->mValue.isDouble())
 			{
 				out = childNode->mValue.asFloat();
 			}
@@ -72,7 +73,7 @@ namespace Engine
 		FOR_EACH(child, mChildNodes)
 		{
 			JSONSerializer * childNode = *child;
-			if (childNode->mName == name && childNode->mValue.isBool())
+			if (childNode->name_ == name && childNode->mValue.isBool())
 			{
 				out = childNode->mValue.asBool();
 			}
@@ -84,13 +85,13 @@ namespace Engine
 		FOR_EACH(child, mChildNodes)
 		{
 			JSONSerializer * childNode = *child;
-			if (childNode->mName == name && childNode->mValue.isString())
+			if (childNode->name_ == name && childNode->mValue.isString())
 			{
 				out = childNode->mValue.asString();
 			}
 		}
 	}
-
+	/*
 	void JSONSerializer::StreamRead(const char * name, Vec2 & out)
 	{
 		FOR_EACH(child, mChildNodes)
@@ -139,7 +140,7 @@ namespace Engine
 			}
 		}
 	}
-
+	*/
 	void JSONSerializer::StreamWrite(const char * name, const s32 & in)
 	{
 		mValue[name] = in;
@@ -164,7 +165,7 @@ namespace Engine
 	{
 		mValue[name] = in;
 	}
-
+	/*
 	void JSONSerializer::StreamWrite(const char * name, const Vec2 & in)
 	{
 		mValue[name]["x"] = in.x;
@@ -188,12 +189,13 @@ namespace Engine
 
 		mValue[name]["Orientation"] = in.GetRotation();
 	}
+	*/
 
 
 	ISerializer * JSONSerializer::BeginNode(const char * name)
 	{
 		JSONSerializer * newNode = new JSONSerializer(mMode, this);
-		newNode->SetName(name);
+		newNode->setName(name);
 		mChildNodes.push_back(newNode);
 		return newNode;
 	}
@@ -202,7 +204,7 @@ namespace Engine
 	{
 		FOR_EACH(it, mChildNodes)
 		{
-			mValue[(*it)->GetName()] = (*it)->mValue;
+			mValue[(*it)->getName()] = (*it)->mValue;
 		}
 	}
 
@@ -220,7 +222,7 @@ namespace Engine
 		FOR_EACH(nodeIt, mChildNodes)
 		{
 			// name is found
-			if ((*nodeIt)->mName == name)
+			if ((*nodeIt)->name_ == name)
 				return *nodeIt;
 		}
 
@@ -282,7 +284,7 @@ namespace Engine
 		{
 
 			JSONSerializer * newNode = new JSONSerializer(parent->GetMode(), parent);
-			newNode->SetName(it.key().asCString());
+			newNode->setName(it.key().asCString());
 			newNode->mValue = *it;
 			parent->mChildNodes.push_back(newNode);
 
@@ -313,7 +315,11 @@ namespace Engine
 		if (is.is_open())
 		{
 			Json::Reader r;
-			r.parse(is, mValue, false);
+			if (!r.parse(is, mValue, true)) {
+				//for some reason it always fails to parse
+				std::cout << "Failed to parse configuration\n"
+					<< r.getFormattedErrorMessages();
+			}
 			ReadJSONChildNodesRec(this);
 			is.close();
 			return true;

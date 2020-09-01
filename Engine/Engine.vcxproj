@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\marlock\Source\libraries\OpenGL\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\marlock\Source\libraries\OpenGL\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\marlock\Source\libraries\Serialization\includes;C:\Users\marlock\Source\libraries\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\marlock\Source\libraries\Serialization\lib;C:\Users\marlock\Source\libraries\OpenGL\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -122,7 +122,7 @@
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalDependencies>glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>jsoncpp.lib;glfw3.lib;opengl32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -142,26 +142,25 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Main.cpp" />
     <ClCompile Include="src\Application\Application.cpp" />
     <ClCompile Include="src\Core\Base.cpp" />
     <ClCompile Include="src\Core\Rtti.cpp" />
+    <ClCompile Include="src\Core\System.cpp" />
     <ClCompile Include="src\Gfx\glad.c" />
     <ClCompile Include="src\Gfx\Window.cpp" />
-    <ClCompile Include="src\Main.cpp" />
-    <ClCompile Include="src\Utils\Serialization\JSON\JSONSerializer.cpp" />
     <ClCompile Include="src\Utils\Utils.cpp" />
-    <ClCompile Include="System.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="DataTypes.h" />
     <ClInclude Include="src\Application\Application.h" />
     <ClInclude Include="src\Core\Base.h" />
+    <ClInclude Include="src\Core\DataTypes.h" />
     <ClInclude Include="src\Core\Rtti.h" />
+    <ClInclude Include="src\Core\System.h" />
     <ClInclude Include="src\Gfx\Window.h" />
     <ClInclude Include="src\Utils\Serialization\ISerializer.h" />
     <ClInclude Include="src\Utils\Serialization\JSON\JSONSerializer.h" />
     <ClInclude Include="src\Utils\Utils.h" />
-    <ClInclude Include="System.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="fragment.shader" />

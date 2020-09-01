@@ -1,6 +1,19 @@
+/************************************************************************/
+/*!
+\file	  Rtti.cpp
+\author Martin Angulo Umaran
+\par    email: marlock97@gmail.com
+\par    Game Engine
+\date	  31/08/2020
+\brief  IBase class declaration.
+
+\log    31/08/2020 -> Initial version.
+*/
+/************************************************************************/
+
 #include <string>
-#include "src/Core/DataTypes.h"
-#include "src/Core/Rtti.h"
+#include "DataTypes.h"
+#include "Rtti.h"
 
 namespace Engine
 {
@@ -12,18 +25,16 @@ namespace Engine
 
     bool isExactly(const Rtti& otherType) const;
     bool isDerived(const Rtti& otherType) const;
-    bool isExactly(const IBase& otherType) const;
-    bool isDerived(const IBase& otherType) const;
+    bool isExactly(const IBase& otherObj) const;
+    bool isDerived(const IBase& otherObj) const;
 
-    std::string getName() const;
-    void setName();
+    std::string getName();
+    void setName(const char* name);
     u32 getUID() const;
 
-  private:
+  protected:
     std::string name_;
     u32 UID_ = 0;
-
-  protected:
     IBase();
     virtual ~IBase() = 0;
   };
