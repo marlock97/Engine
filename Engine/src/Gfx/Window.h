@@ -1,22 +1,24 @@
-#include <Windows.h>
+#pragma once
+#include <glad/glad.h>
+#include <GLFW/glfw3.h>
+#include "../Core/Base.h"
+#include "../Core/Rtti.h"
 
-#ifndef UNICODE
-#define UNICODE
-#endif 
+// settings
+const u32 WINDOW_WIDTH = 800;
+const u32 WINDOW_HEIGHT = 600;
 
-class Window
+namespace Engine
 {
-public:
-		//Window();
-		
+	class Window : public IBase
+	{
+	RTTI_DECL;
+	public:
+		void CreateWindow();
+		//void ResizeWindow(u32 width = WINDOW_WIDTH, u32 height = WINDOW_HEIGHT);
 
-private:
-	
-};
-
-class WindowManager
-{
-public:
-		//void Initialize();
-		//void GetMainWindow();
-};
+		GLFWwindow* GetGLFWHandle() { return window_; };
+	private:
+		GLFWwindow* window_ = nullptr;
+	};
+}

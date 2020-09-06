@@ -10,7 +10,7 @@
 \log    31/08/2020 -> Initial version.
 */
 /************************************************************************/
-
+#pragma once
 #include <string>
 #include "DataTypes.h"
 #include "Rtti.h"
@@ -21,7 +21,7 @@ namespace Engine
   {
   public:
     static const Rtti TYPE;
-    virtual const Rtti& getType() const;
+    virtual const Rtti& getType() const { return TYPE; }
 
     bool isExactly(const Rtti& otherType) const;
     bool isDerived(const Rtti& otherType) const;

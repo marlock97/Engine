@@ -14,13 +14,18 @@
 #include <GLFW/glfw3.h>
 #include <iostream>
 
+#include "src/Gfx/GfxSystem.h"
+#include "src/Gfx/Shader.h"
+#include "src/Gfx/ShaderProgram.h"
+#include "src/Gfx/Window.h"
+
 // settings
-const unsigned int SCR_WIDTH = 800;
-const unsigned int SCR_HEIGHT = 600;
+//const unsigned int SCR_WIDTH = 800;
+//const unsigned int SCR_HEIGHT = 600;
 
 void processInput(GLFWwindow* window);
-void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-
+//void framebuffer_size_callback(GLFWwindow* window, int width, int height);
+/*
 const char* vertexShaderSource = "#version 330 core\n"
 "layout (location = 0) in vec3 aPos;\n"
 "void main()\n"
@@ -34,9 +39,16 @@ const char* fragmentShaderSource = "#version 330 core\n"
 "{\n"
 "   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
 "}\n\0";
+*/
 
 int main()
 {
+  Engine::GfxSystem gfx;
+  gfx.Initialize();
+  Engine::Window w;
+  w.CreateWindow();
+  gfx.InitGLAD();
+  /*
   //Initialize GLFW
   glfwInit();
   glfwWindowHint(GLFW_CONTEXT_VERSION_MAJOR, 3);
@@ -54,14 +66,17 @@ int main()
   glfwMakeContextCurrent(window);
   //Adjust vieport on window resize
   glfwSetFramebufferSizeCallback(window, framebuffer_size_callback);
-
+  /*
   //Initialize GLAD
   if (!gladLoadGLLoader((GLADloadproc)glfwGetProcAddress))
   {
     std::cout << "Failed to initialize GLAD" << std::endl;
     return -1;
   }
-
+  */
+  Engine::Shader vertexShader("vertex.shader", Engine::Shader::ShaderType::vertex);
+  Engine::Shader fragmentShader("fragment.shader", Engine::Shader::ShaderType::fragment);
+  /*
   //Create vertex shader
   unsigned int vertexShader;
   vertexShader = glCreateShader(GL_VERTEX_SHADER);
@@ -76,6 +91,7 @@ int main()
     glGetShaderInfoLog(vertexShader, 512, NULL, infoLog);
     std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
   }
+
   unsigned int fragmentShader;
   fragmentShader = glCreateShader(GL_FRAGMENT_SHADER);
   glShaderSource(fragmentShader, 1, &fragmentShaderSource, NULL);
@@ -88,6 +104,13 @@ int main()
     glGetShaderInfoLog(fragmentShader, 512, NULL, infoLog);
     std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
   }
+  */
+  Engine::ShaderProgram shaderProgram;
+  shaderProgram.SetGLHandle();
+  shaderProgram.AttachShader(vertexShader);
+  shaderProgram.AttachShader(fragmentShader);
+  shaderProgram.Link();
+  /*
   //Create shader program
   unsigned int shaderProgram;
   shaderProgram = glCreateProgram();
@@ -105,7 +128,7 @@ int main()
   //Delete shader objects
   glDeleteShader(vertexShader);
   glDeleteShader(fragmentShader);
-
+  */
   //Vertex data
   float vertices[] = {
        0.5f,  0.5f, 0.0f,  // top right
@@ -148,31 +171,31 @@ int main()
   glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
 
   //Render loop
-  while (!glfwWindowShouldClose(window))
+  while (!glfwWindowShouldClose(w.GetGLFWHandle()))
   {
     //Input  
-    processInput(window);
+    processInput(w.GetGLFWHandle());
 
     //Render
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     // draw our first triangle
-    glUseProgram(shaderProgram);
+    glUseProgram(shaderProgram.GetGLHandle());
     glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
     //glDrawArrays(GL_TRIANGLES, 0, 6);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
     // glBindVertexArray(0); // no need to unbind it every time 
 
     //Check events and swap buffers
-    glfwSwapBuffers(window);
+    glfwSwapBuffers(w.GetGLFWHandle());
     glfwPollEvents();
   }
 
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &VBO);
   glDeleteBuffers(1, &EBO);
-  glDeleteProgram(shaderProgram);
+  glDeleteProgram(shaderProgram.GetGLHandle());
 
   //Terminate glfw
   glfwTerminate();
@@ -185,7 +208,9 @@ void processInput(GLFWwindow* window)
     glfwSetWindowShouldClose(window, true);
 }
 
+/*
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 {
   glViewport(0, 0, width, height);
 }
+*/

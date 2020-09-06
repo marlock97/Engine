@@ -60,6 +60,18 @@
     <ClCompile Include="src\Core\System.cpp">
       <Filter>src\Core</Filter>
     </ClCompile>
+    <ClCompile Include="src\Gfx\Vertex.cpp">
+      <Filter>src\Gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gfx\Shader.cpp">
+      <Filter>src\Gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gfx\ShaderProgram.cpp">
+      <Filter>src\Gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gfx\GfxSystem.cpp">
+      <Filter>src\Gfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h">
@@ -88,6 +100,18 @@
     </ClInclude>
     <ClInclude Include="src\Core\DataTypes.h">
       <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gfx\Vertex.h">
+      <Filter>src\Gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gfx\Shader.h">
+      <Filter>src\Gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gfx\ShaderProgram.h">
+      <Filter>src\Gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gfx\GfxSystem.h">
+      <Filter>src\Gfx</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

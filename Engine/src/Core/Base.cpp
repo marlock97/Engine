@@ -14,16 +14,13 @@
 
 namespace Engine
 {
-  RTTI_IMPL(IBase, NULL);
+  RTTI_IMPL_BASE(IBase);
 
   IBase::IBase() {
   }
   IBase::~IBase() {
   }
 
-  const Rtti& IBase::getType() const {
-    return TYPE;
-  }
   std::string IBase::getName() {
     return name_;
   }

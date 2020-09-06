@@ -16,22 +16,19 @@
 #include <memory>
 #include <string>
 
-namespace Engine
+class Rtti
 {
-  class Rtti
-  {
-  public:
-    Rtti(std::string name, const Rtti* baseType);
-    std::string getName() const;
+public:
+  Rtti(const char* name, const Rtti* baseType);
+  const char* getName() const;
 
-    bool isExactly(const Rtti& otherType) const;
-    bool isDerived(const Rtti& otherType) const;
+  bool isExactly(const Rtti& otherType) const;
+  bool isDerived(const Rtti& otherType) const;
 
-  private:
-    std::string name_;
-    const Rtti* baseType_ = nullptr;
-  };
-}
+private:
+  std::string name_;
+  const Rtti* baseType_ = nullptr;
+};
 
 #define RTTI_DECL											\
 	public:															\
@@ -41,5 +38,8 @@ namespace Engine
 			return TYPE;											\
 		}	
 
-#define RTTI_IMPL(thisType, parentTypeAddr)							\
-	const Rtti thisType::TYPE = Rtti(typeid(thisType).name(), parentTypeAddr);	\
+#define RTTI_IMPL_BASE(thisType)							\
+	const Rtti thisType::TYPE = Rtti(typeid(thisType).name(), NULL);	\
+
+#define RTTI_IMPL(thisType, parentType)							\
+	const Rtti thisType::TYPE = Rtti(typeid(thisType).name(), &parentType::TYPE);	\
