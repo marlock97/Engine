@@ -10,6 +10,8 @@
 \log  26/08/2020 -> Initial version
 */
 /************************************************************************/
+//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") Remove console window
+//More info: https://learnopengl.com/Getting-started/Creating-a-window
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -168,7 +170,7 @@ int main()
   glBindVertexArray(0);
 
   // uncomment this call to draw in wireframe polygons.
-  glPolygonMode(GL_FRONT_AND_BACK, GL_LINE);
+  glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
   //Render loop
   while (!glfwWindowShouldClose(w.GetGLFWHandle()))

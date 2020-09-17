@@ -39,8 +39,7 @@ namespace Engine
     int  success;
     char infoLog[512];
     glGetShaderiv(glHandle_, GL_COMPILE_STATUS, &success);
-    if (!success)
-    {
+    if (!success) {
       glGetShaderInfoLog(glHandle_, 512, NULL, infoLog);
       std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
     }
@@ -49,10 +48,8 @@ namespace Engine
   void Shader::SetShaderType(ShaderType shaderType, bool createGLHandle) {
     shaderType_ = shaderType;
 
-    if(createGLHandle)
-    {
-      switch (shaderType)
-      {
+    if(createGLHandle) {
+      switch (shaderType) {
       case ShaderType::vertex:
         glHandle_ = glCreateShader(GL_VERTEX_SHADER);
         break;

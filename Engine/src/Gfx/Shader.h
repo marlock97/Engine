@@ -33,7 +33,5 @@ namespace Engine
     u32 glHandle_ = 0;
     std::string shaderString_;
     std::string filename_;
-    
-
   };
 }

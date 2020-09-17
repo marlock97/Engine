@@ -34,6 +34,9 @@
     <Filter Include="src\Utils\Serialization\JSON">
       <UniqueIdentifier>{c65598dc-02fe-4c95-8cad-28fa50a87ab2}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Gfx\shaders">
+      <UniqueIdentifier>{275def80-a144-4fbc-a07c-2ef5c04fed4b}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Application\Application.cpp">
@@ -70,6 +73,9 @@
       <Filter>src\Gfx</Filter>
     </ClCompile>
     <ClCompile Include="src\Gfx\GfxSystem.cpp">
+      <Filter>src\Gfx</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Gfx\Renderable.cpp">
       <Filter>src\Gfx</Filter>
     </ClCompile>
   </ItemGroup>
@@ -113,13 +119,16 @@
     <ClInclude Include="src\Gfx\GfxSystem.h">
       <Filter>src\Gfx</Filter>
     </ClInclude>
+    <ClInclude Include="src\Gfx\Renderable.h">
+      <Filter>src\Gfx</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="vertex.shader">
-      <Filter>src\Gfx</Filter>
+    <None Include="src\Gfx\shaders\fragment.shader">
+      <Filter>src\Gfx\shaders</Filter>
     </None>
-    <None Include="fragment.shader">
-      <Filter>src\Gfx</Filter>
+    <None Include="src\Gfx\shaders\vertex.shader">
+      <Filter>src\Gfx\shaders</Filter>
     </None>
   </ItemGroup>
 </Project>

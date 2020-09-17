@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>C:\Users\marlock\Source\libraries\Serialization\includes;C:\Users\marlock\Source\libraries\OpenGL\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>C:\Users\marlock\Source\libraries\Serialization\lib;C:\Users\marlock\Source\libraries\OpenGL\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>D:\Source\Libraries\Serialization\includes;D:\Source\Libraries\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>D:\Source\Libraries\OpenGL\lib;D:\Source\Libraries\Serialization\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
@@ -149,6 +149,7 @@
     <ClCompile Include="src\Core\System.cpp" />
     <ClCompile Include="src\Gfx\GfxSystem.cpp" />
     <ClCompile Include="src\Gfx\glad.c" />
+    <ClCompile Include="src\Gfx\Renderable.cpp" />
     <ClCompile Include="src\Gfx\Shader.cpp" />
     <ClCompile Include="src\Gfx\ShaderProgram.cpp" />
     <ClCompile Include="src\Gfx\Vertex.cpp" />
@@ -162,6 +163,7 @@
     <ClInclude Include="src\Core\Rtti.h" />
     <ClInclude Include="src\Core\System.h" />
     <ClInclude Include="src\Gfx\GfxSystem.h" />
+    <ClInclude Include="src\Gfx\Renderable.h" />
     <ClInclude Include="src\Gfx\Shader.h" />
     <ClInclude Include="src\Gfx\ShaderProgram.h" />
     <ClInclude Include="src\Gfx\Vertex.h" />
@@ -171,8 +173,8 @@
     <ClInclude Include="src\Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="fragment.shader" />
-    <None Include="vertex.shader" />
+    <None Include="src\Gfx\shaders\fragment.shader" />
+    <None Include="src\Gfx\shaders\vertex.shader" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
