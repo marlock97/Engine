@@ -76,8 +76,8 @@ int main()
     return -1;
   }
   */
-  Engine::Shader vertexShader("vertex.shader", Engine::Shader::ShaderType::vertex);
-  Engine::Shader fragmentShader("fragment.shader", Engine::Shader::ShaderType::fragment);
+  Engine::Shader vertexShader("src/Gfx/shaders/vertex.shader", Engine::Shader::ShaderType::vertex);
+  Engine::Shader fragmentShader("src/Gfx/shaders/fragment.shader", Engine::Shader::ShaderType::fragment);
   /*
   //Create vertex shader
   unsigned int vertexShader;
@@ -182,8 +182,17 @@ int main()
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
-    // draw our first triangle
+    //Draw our first triangle
     glUseProgram(shaderProgram.GetGLHandle());
+
+    //Dynamic color change using uniform
+    f32 deltaTime = glfwGetTime();
+    f32 colorValR = (sin(deltaTime) / 2.0f) + 0.5f;
+    f32 colorValG = (sin(deltaTime + 1.0f) / 2.0f) + 0.5f;
+    f32 colorValB = (sin(deltaTime + 2.0f) / 2.0f) + 0.5f;
+    s32 vertexColorLocation = glGetUniformLocation(shaderProgram.GetGLHandle(), "vertexColor");
+    glUniform4f(vertexColorLocation, colorValR, colorValG, colorValB, 1.0);
+
     glBindVertexArray(VAO); // seeing as we only have a single VAO there's no need to bind it every time, but we'll do so to keep things a bit more organized
     //glDrawArrays(GL_TRIANGLES, 0, 6);
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);

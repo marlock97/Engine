@@ -41,7 +41,19 @@ namespace Engine
     glGetShaderiv(glHandle_, GL_COMPILE_STATUS, &success);
     if (!success) {
       glGetShaderInfoLog(glHandle_, 512, NULL, infoLog);
-      std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+      switch (shaderType_) {
+      case ShaderType::vertex:
+        std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
+        break;
+      case ShaderType::fragment:
+        std::cout << "ERROR::SHADER::FRAGMENT::COMPILATION_FAILED\n" << infoLog << std::endl;
+        break;
+      case ShaderType::geometry:
+        std::cout << "ERROR::SHADER::GEOMETRY::COMPILATION_FAILED\n" << infoLog << std::endl;
+        break;
+      default:
+        return;
+      }
     }
   }
   
