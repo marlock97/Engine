@@ -11,7 +11,12 @@ namespace Engine
     glHandle_ = glCreateProgram();
   }
 
-  void ShaderProgram::AttachShader(Shader shader) {
+  void ShaderProgram::AttachShader(u32 shaderID) {
+    glAttachShader(glHandle_, shaderID);
+    shaders_.push_back(shaderID);
+  }
+
+  void ShaderProgram::AttachShader(const Shader& shader) {
     glAttachShader(glHandle_, shader.GetShaderHandle());
     shaders_.push_back(shader.GetShaderHandle());
   }
@@ -32,5 +37,21 @@ namespace Engine
     for(u32 i = 0; i < shaders_.size(); ++i) {
       glDeleteShader(shaders_[i]);
     }
+  }
+
+  void ShaderProgram::SetBool(const std::string& name, bool val) const {
+    glUniform1i(glGetUniformLocation(glHandle_, name.c_str()), static_cast<int>(val));
+  }
+
+  void ShaderProgram::SetInt(const std::string& name, int val) const {
+    glUniform1i(glGetUniformLocation(glHandle_, name.c_str()), val);
+  }
+
+  void ShaderProgram::SetFloat(const std::string& name, float val) const {
+    glUniform1f(glGetUniformLocation(glHandle_, name.c_str()), val);
+  }
+  
+  void ShaderProgram::Use() const {
+    glUseProgram(glHandle_);
   }
 }

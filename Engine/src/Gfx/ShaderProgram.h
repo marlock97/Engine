@@ -11,10 +11,16 @@ namespace Engine
     RTTI_DECL;
     public:
       void SetGLHandle();
-      void AttachShader(Shader shader);
+      void AttachShader(u32 shader);
+      void AttachShader(const Shader& shader);
       void Link();
+      void Use() const;
       
-      u32 GetGLHandle() { return glHandle_; };
+      void SetBool(const std::string& name, bool val) const;
+      void SetInt(const std::string& name, int val) const;
+      void SetFloat(const std::string& name, float val) const;
+
+      u32 GetGLHandle() const { return glHandle_; };
     private:
     u32 glHandle_ = 0;
     std::vector<u32> shaders_;

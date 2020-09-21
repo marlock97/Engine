@@ -47,8 +47,8 @@ int main()
 {
   Engine::GfxSystem gfx;
   gfx.Initialize();
-  Engine::Window w;
-  w.CreateWindow();
+  Engine::Window window;
+  window.CreateWindow();
   gfx.InitGLAD();
   /*
   //Initialize GLFW
@@ -176,17 +176,17 @@ int main()
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
 
   //Render loop
-  while (!glfwWindowShouldClose(w.GetGLFWHandle()))
+  while (!glfwWindowShouldClose(window.GetGLFWHandle()))
   {
     //Input  
-    processInput(w.GetGLFWHandle());
+    processInput(window.GetGLFWHandle());
 
     //Render
     glClearColor(0.2f, 0.3f, 0.3f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT);
 
     //Draw our first triangle
-    glUseProgram(shaderProgram.GetGLHandle());
+    shaderProgram.Use();
 
     //Dynamic color change using uniform
     /*
@@ -203,7 +203,7 @@ int main()
     // glBindVertexArray(0); // no need to unbind it every time 
 
     //Check events and swap buffers
-    glfwSwapBuffers(w.GetGLFWHandle());
+    glfwSwapBuffers(window.GetGLFWHandle());
     glfwPollEvents();
   }
 
