@@ -12,6 +12,8 @@
 /************************************************************************/
 //#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") Remove console window
 //More info: https://learnopengl.com/Getting-started/Creating-a-window
+#define STB_IMAGE_IMPLEMENTATION
+#include <stb/stb_image.h>
 #include <glad/glad.h>
 #include <GLFW/glfw3.h>
 #include <iostream>
@@ -133,10 +135,11 @@ int main()
   */
   //Vertex data
   float vertices[] = {
-       0.5f,  0.5f, 0.0f, 1.0f,  0.0f, 0.0f,  // top right
-       0.5f, -0.5f, 0.0f, 0.0f,  1.0f, 0.0f, // bottom right
-      -0.5f, -0.5f, 0.0f, 1.0f,  0.0f, 0.0f,  // bottom left
-      -0.5f,  0.5f, 0.0f, 0.0f,  0.0f, 1.0f   // top left 
+      //Position          //Color
+       0.5f,  0.5f, 0.0f, 1.0f, 0.0f, 0.0f,  // top right
+       0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f,  // bottom right
+      -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f,  // bottom left
+      -0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f   // top left 
   };
   unsigned int indices[] = {
           0, 1, 3,  // first Triangle
@@ -174,6 +177,10 @@ int main()
 
   // uncomment this call to draw in wireframe polygons.
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
+
+  //Texture loading
+  int width, height, nrChannels;
+  //unsigned char* data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
 
   //Render loop
   while (!glfwWindowShouldClose(window.GetGLFWHandle()))
