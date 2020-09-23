@@ -10,8 +10,7 @@
 \log  26/08/2020 -> Initial version
 */
 /************************************************************************/
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") Remove console window
-//More info: https://learnopengl.com/Getting-started/Creating-a-window
+//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") //Remove console window, more info: https://learnopengl.com/Getting-started/Creating-a-window
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 #include <glad/glad.h>
@@ -177,10 +176,6 @@ int main()
 
   // uncomment this call to draw in wireframe polygons.
   glPolygonMode(GL_FRONT_AND_BACK, GL_FILL);
-
-  //Texture loading
-  int width, height, nrChannels;
-  //unsigned char* data = stbi_load("container.jpg", &width, &height, &nrChannels, 0);
 
   //Render loop
   while (!glfwWindowShouldClose(window.GetGLFWHandle()))

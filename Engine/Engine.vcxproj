@@ -78,8 +78,8 @@
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>true</LinkIncremental>
-    <IncludePath>D:\Source\Libraries\Serialization\includes;D:\Source\Libraries\OpenGL\includes;$(IncludePath)</IncludePath>
-    <LibraryPath>D:\Source\Libraries\OpenGL\lib;D:\Source\Libraries\Serialization\lib;$(LibraryPath)</LibraryPath>
+    <IncludePath>C:\Users\marlock\Source\libraries\Serialization\includes;C:\Users\marlock\Source\libraries\OpenGL\includes;D:\Source\Libraries\Serialization\includes;D:\Source\Libraries\OpenGL\includes;$(IncludePath)</IncludePath>
+    <LibraryPath>C:\Users\marlock\Source\libraries\Serialization\lib;C:\Users\marlock\Source\libraries\OpenGL\lib;D:\Source\Libraries\OpenGL\lib;D:\Source\Libraries\Serialization\lib;$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
