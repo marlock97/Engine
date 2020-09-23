@@ -16,9 +16,16 @@ namespace Engine
 	public:
 		void CreateWindow();
 		//void ResizeWindow(u32 width = WINDOW_WIDTH, u32 height = WINDOW_HEIGHT);
+		
+		u32 GetWidth() const;
+		void setWidth(u32 width);
+		u32 GetHeight() const;
+		void setHeight(u32 height);
 
 		GLFWwindow* GetGLFWHandle() { return window_; };
 	private:
 		GLFWwindow* window_ = nullptr;
+		u32 width_ = WINDOW_HEIGHT;
+		u32 height_ = WINDOW_HEIGHT;
 	};
 }

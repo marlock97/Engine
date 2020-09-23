@@ -19,6 +19,22 @@ namespace Engine
     //Adjust vieport on window resize
     glfwSetFramebufferSizeCallback(window_, framebuffer_size_callback);
   }
+  
+  u32 Window::GetWidth() const {
+    return width_;
+  }
+
+  void Window::setWidth(u32 width) {
+    width_ = width;
+  }
+
+  u32 Window::GetHeight() const {
+    return height_;
+  }
+
+  void Window::setHeight(u32 height) {
+    height_ = height;
+  }
 }
 
 void framebuffer_size_callback(GLFWwindow* window, int width, int height)
