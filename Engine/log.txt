@@ -1,0 +1,8 @@
+exists() = 0
+root_name() = ""
+root_path() = ""
+relative_path() = "Engine\\data\\textures\\container.jpg"
+parent_path() = "Engine\\data\\textures"
+filename() = "container.jpg"
+stem() = "container"
+extension() = ".jpg"
