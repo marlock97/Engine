@@ -30,27 +30,7 @@
 #include "src/Gfx/ShaderProgram.h"
 #include "src/Gfx/Window.h"
 
-// settings
-//const unsigned int SCR_WIDTH = 800;
-//const unsigned int SCR_HEIGHT = 600;
-
 void processInput(GLFWwindow* window);
-//void framebuffer_size_callback(GLFWwindow* window, int width, int height);
-/*
-const char* vertexShaderSource = "#version 330 core\n"
-"layout (location = 0) in vec3 aPos;\n"
-"void main()\n"
-"{\n"
-"   gl_Position = vec4(aPos.x, aPos.y, aPos.z, 1.0);\n"
-"}\0";
-
-const char* fragmentShaderSource = "#version 330 core\n"
-"out vec4 FragColor;\n"
-"void main()\n"
-"{\n"
-"   FragColor = vec4(1.0f, 0.5f, 0.2f, 1.0f);\n"
-"}\n\0";
-*/
 
 int main()
 {
@@ -78,6 +58,11 @@ int main()
        0.5f, -0.5f, 0.0f, 0.0f, 1.0f, 0.0f, 1.0f, 0.0f,  // bottom right
       -0.5f, -0.5f, 0.0f, 0.0f, 0.0f, 1.0f, 0.0f, 0.0f,  // bottom left
       -0.5f,  0.5f, 0.0f, 1.0f, 1.0f, 0.0f, 0.0f, 1.0f   // top left 
+  };
+
+  unsigned int indices[] = {
+        0, 1, 3,  // first Triangle
+        1, 2, 3   // second Triangle
   };
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
@@ -139,10 +124,7 @@ int main()
       glm::vec3(1.5f,  0.2f, -1.5f),
       glm::vec3(-1.3f,  1.0f, -1.5f)
   };
-  unsigned int indices[] = {
-          0, 1, 3,  // first Triangle
-          1, 2, 3   // second Triangle
-  };
+
   //Create VBO, VAO, EBO
   unsigned int VBO, VAO;//, EBO;
   glGenVertexArrays(1, &VAO);
@@ -226,7 +208,7 @@ int main()
   stbi_image_free(data);
 
   shaderProgram.Use(); // don't forget to activate/use the shader before setting uniforms!
-      // either set it manually like so:
+      // set it manually like so:
   glUniform1i(glGetUniformLocation(shaderProgram.GetGLHandle(), "texture0"), 0);
   glUniform1i(glGetUniformLocation(shaderProgram.GetGLHandle(), "texture1"), 1);
 
@@ -300,10 +282,3 @@ void processInput(GLFWwindow* window)
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
 }
-
-/*
-void framebuffer_size_callback(GLFWwindow* window, int width, int height)
-{
-  glViewport(0, 0, width, height);
-}
-*/
