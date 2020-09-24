@@ -1,3 +1,15 @@
+/************************************************************************/
+/*!
+\file	  Shader.cpp
+\author Martin Angulo Umaran
+\par    email: marlock97@gmail.com
+\par    Game Engine
+\date	  05/09/2020
+\brief  Shader class implementation.
+
+\log    05/09/2020 -> Initial version.
+*/
+/************************************************************************/
 #include <iostream>
 #include <fstream>
 #include <vector>

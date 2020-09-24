@@ -29,13 +29,18 @@
 #include "src/Gfx/Shader.h"
 #include "src/Gfx/ShaderProgram.h"
 #include "src/Gfx/Window.h"
+#include "src/Gfx/Texture.h"
 
+/*TODO:
+*   -Add Texture class.
+*/
 void processInput(GLFWwindow* window);
 
 int main()
 {
   Engine::GfxSystem gfx;
   gfx.Initialize();
+  stbi_set_flip_vertically_on_load(true);
   Engine::Window window;
   window.CreateWindow();
   gfx.InitGLAD();
@@ -157,6 +162,10 @@ int main()
   glEnableVertexAttribArray(2);
   */
 
+  Engine::Texture texture0("data/textures/container.jpg");
+  Engine::Texture texture1("data/textures/awesomeface.png");
+
+  /*
   //Load and create texture
   unsigned int texture0, texture1;
 
@@ -172,7 +181,6 @@ int main()
 
   // load and generate the texture
   int width, height, nrChannels;
-  stbi_set_flip_vertically_on_load(true);
 
   unsigned char* data = stbi_load("data/textures/container.jpg", &width, &height, &nrChannels, 0);
 
@@ -206,6 +214,7 @@ int main()
     std::cout << "Failed to load texture" << std::endl;
   }
   stbi_image_free(data);
+  */
 
   shaderProgram.Use(); // don't forget to activate/use the shader before setting uniforms!
       // set it manually like so:
@@ -223,9 +232,9 @@ int main()
 
     //Textures
     glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
-    glBindTexture(GL_TEXTURE_2D, texture0);
+    glBindTexture(GL_TEXTURE_2D, texture0.GetGLHandle());
     glActiveTexture(GL_TEXTURE1); // activate the texture unit first before binding texture
-    glBindTexture(GL_TEXTURE_2D, texture1);
+    glBindTexture(GL_TEXTURE_2D, texture1.GetGLHandle());
 
     shaderProgram.Use();
 
