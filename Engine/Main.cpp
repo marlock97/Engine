@@ -217,9 +217,8 @@ int main()
   */
 
   shaderProgram.Use(); // don't forget to activate/use the shader before setting uniforms!
-      // set it manually like so:
-  glUniform1i(glGetUniformLocation(shaderProgram.GetGLHandle(), "texture0"), 0);
-  glUniform1i(glGetUniformLocation(shaderProgram.GetGLHandle(), "texture1"), 1);
+  shaderProgram.SetInt("texture0", 0);
+  shaderProgram.SetInt("texture1", 1);
 
   //Render loop
   while (!glfwWindowShouldClose(window.GetGLFWHandle())) {
