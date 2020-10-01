@@ -30,31 +30,26 @@
 #include "src/Gfx/ShaderProgram.h"
 #include "src/Gfx/Window.h"
 #include "src/Gfx/Texture.h"
+#include "src/Gfx/Camera.h"
 
 /*TODO:
  *   -Add Texture class.
  */
 
 //Time
-float deltaTime = 0.0f;	// Time between current frame and last frame
-float lastFrame = 0.0f; // Time of last frame
+f32 deltaTime = 0.0f;	// Time between current frame and last frame
+f32 lastFrame = 0.0f; // Time of last frame
 
 //Camera
-glm::vec3 cameraPos = glm::vec3(0.0f, 0.0f, 3.0f);
-glm::vec3 cameraFront = glm::vec3(0.0f, 0.0f, -1.0f);
-glm::vec3 cameraUp = glm::vec3(0.0f, 1.0f, 0.0f);
-
+Engine::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
+f32 lastX = WINDOW_WIDTH / 2.0f;
+f32 lastY = WINDOW_HEIGHT / 2.0f;
 bool firstMouse = true;
-float yaw = -90.0f;	// yaw is initialized to -90.0 degrees since a yaw of 0.0 results in a direction vector pointing to the right so we initially rotate a bit to the left.
-float pitch = 0.0f;
-float lastX = 800.0f / 2.0;
-float lastY = 600.0 / 2.0;
-float fov = 45.0f;
 
 //Input
 void processInput(GLFWwindow* window);
-void mouse_callback(GLFWwindow* window, double xpos, double ypos);
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset);
+void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos);
+void scroll_callback(GLFWwindow* window, f64 xoffset, f64 yoffset);
 
 int main()
 {
@@ -82,6 +77,7 @@ int main()
   shaderProgram.AttachShader(fragmentShader);
   shaderProgram.Link();
   
+  /*
   //Vertex data
   float vertices[] = {
       //Position          //Color           //Texture coords
@@ -95,9 +91,10 @@ int main()
         0, 1, 3,  // first Triangle
         1, 2, 3   // second Triangle
   };
+  */
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
-  float cubeVtx[] = {
+  f32 cubeVtx[] = {
       //Position          //Color           //Texture coords
       -0.5f, -0.5f, -0.5f,  0.0f, 0.0f,
        0.5f, -0.5f, -0.5f,  1.0f, 0.0f,
@@ -143,21 +140,21 @@ int main()
   };
 
   // world space positions of our cubes
-  glm::vec3 cubePositions[] = {
-      glm::vec3(0.0f,  0.0f,  0.0f),
-      glm::vec3(2.0f,  5.0f, -15.0f),
-      glm::vec3(-1.5f, -2.2f, -2.5f),
-      glm::vec3(-3.8f, -2.0f, -12.3f),
-      glm::vec3(2.4f, -0.4f, -3.5f),
-      glm::vec3(-1.7f,  3.0f, -7.5f),
-      glm::vec3(1.3f, -2.0f, -2.5f),
-      glm::vec3(1.5f,  2.0f, -2.5f),
-      glm::vec3(1.5f,  0.2f, -1.5f),
-      glm::vec3(-1.3f,  1.0f, -1.5f)
+  vec3 cubePositions[] = {
+      vec3(0.0f,  0.0f,  0.0f),
+      vec3(2.0f,  5.0f, -15.0f),
+      vec3(-1.5f, -2.2f, -2.5f),
+      vec3(-3.8f, -2.0f, -12.3f),
+      vec3(2.4f, -0.4f, -3.5f),
+      vec3(-1.7f,  3.0f, -7.5f),
+      vec3(1.3f, -2.0f, -2.5f),
+      vec3(1.5f,  2.0f, -2.5f),
+      vec3(1.5f,  0.2f, -1.5f),
+      vec3(-1.3f,  1.0f, -1.5f)
   };
 
   //Create VBO, VAO, EBO
-  unsigned int VBO, VAO;//, EBO;
+  u32 VBO, VAO;//, EBO;
   glGenVertexArrays(1, &VAO);
   glGenBuffers(1, &VBO);
   //glGenBuffers(1, &EBO);
@@ -171,10 +168,10 @@ int main()
   //glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
   // position attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 5 * sizeof(f32), (void*)0);
   glEnableVertexAttribArray(0);
   // texture coord attribute
-  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(float), (void*)(3 * sizeof(float)));
+  glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 5 * sizeof(f32), (void*)(3 * sizeof(f32)));
   glEnableVertexAttribArray(1);
 
   /*
@@ -250,7 +247,7 @@ int main()
   while (!glfwWindowShouldClose(window.GetGLFWHandle())) {
     
     //Time
-    float currentFrame = glfwGetTime();
+    f64 currentFrame = glfwGetTime();
     deltaTime = currentFrame - lastFrame;
     lastFrame = currentFrame;
 
@@ -271,11 +268,13 @@ int main()
     shaderProgram.Use();
 
     //Create transformations
-    glm::mat4 view = glm::lookAt(cameraPos, cameraPos + cameraFront, cameraUp);
-    shaderProgram.SetMat4("view", view);    
-
-    glm::mat4 projection = glm::perspective(glm::radians(fov), (float)window.GetWidth() / (float)window.GetHeight(), 0.1f, 100.0f);
+    // pass projection matrix to shader (note that in this case it could change every frame)
+    mat4 projection = glm::perspective(glm::radians(camera.GetZoom()), (f32)WINDOW_WIDTH / (f32)WINDOW_HEIGHT, 0.1f, 100.0f);
     shaderProgram.SetMat4("projection", projection);
+
+    // camera/view transformation
+    mat4 view = camera.GetViewMatrix();
+    shaderProgram.SetMat4("view", view);
 
     //Render boxes
     glBindVertexArray(VAO);
@@ -287,16 +286,14 @@ int main()
 
     //glDrawArrays(GL_TRIANGLES, 0, 36);
 
-    for (unsigned int i = 0; i < 10; i++)
+    for (u32 i = 0; i < 10; i++)
     {
       // calculate the model matrix for each object and pass it to shader before drawing
-      glm::mat4 model = glm::mat4(1.0f);
+      glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
       model = glm::translate(model, cubePositions[i]);
       float angle = 20.0f * i;
-      if (i % 3 == 0)  // every 3rd iteration (including the first) we set the angle using GLFW's time function.
-        angle = glfwGetTime() * 25.0f;
       model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
-      glUniformMatrix4fv(glGetUniformLocation(shaderProgram.GetGLHandle(), "model"), 1, GL_FALSE, glm::value_ptr(model));
+      shaderProgram.SetMat4("model", model);
 
       glDrawArrays(GL_TRIANGLES, 0, 36);
     }
@@ -309,7 +306,7 @@ int main()
   glDeleteVertexArrays(1, &VAO);
   glDeleteBuffers(1, &VBO);
   //glDeleteBuffers(1, &EBO);
-  glDeleteProgram(shaderProgram.GetGLHandle());
+  //glDeleteProgram(shaderProgram.GetGLHandle());
 
   //Terminate glfw
   glfwTerminate();
@@ -321,18 +318,17 @@ void processInput(GLFWwindow* window)
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
 
-  const float cameraSpeed = 2.5 * deltaTime; // adjust accordingly
   if (glfwGetKey(window, GLFW_KEY_W) == GLFW_PRESS)
-    cameraPos += cameraSpeed * cameraFront;
+    camera.ProcessKeyboard(Engine::Camera::CameraMovement::FORWARD, deltaTime);
   if (glfwGetKey(window, GLFW_KEY_S) == GLFW_PRESS)
-    cameraPos -= cameraSpeed * cameraFront;
+    camera.ProcessKeyboard(Engine::Camera::CameraMovement::BACKWARD, deltaTime);
   if (glfwGetKey(window, GLFW_KEY_A) == GLFW_PRESS)
-    cameraPos -= glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    camera.ProcessKeyboard(Engine::Camera::CameraMovement::LEFT, deltaTime);
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
-    cameraPos += glm::normalize(glm::cross(cameraFront, cameraUp)) * cameraSpeed;
+    camera.ProcessKeyboard(Engine::Camera::CameraMovement::RIGHT, deltaTime);
 }
 
-void mouse_callback(GLFWwindow* window, double xpos, double ypos)
+void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos)
 {
   if (firstMouse)
   {
@@ -341,36 +337,16 @@ void mouse_callback(GLFWwindow* window, double xpos, double ypos)
     firstMouse = false;
   }
 
-  float xoffset = xpos - lastX;
-  float yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+  f32 xoffset = xpos - lastX;
+  f32 yoffset = lastY - ypos; // reversed since y-coordinates go from bottom to top
+
   lastX = xpos;
   lastY = ypos;
 
-  float sensitivity = 0.1f; // change this value to your liking
-  xoffset *= sensitivity;
-  yoffset *= sensitivity;
-
-  yaw += xoffset;
-  pitch += yoffset;
-
-  // make sure that when pitch is out of bounds, screen doesn't get flipped
-  if (pitch > 89.0f)
-    pitch = 89.0f;
-  if (pitch < -89.0f)
-    pitch = -89.0f;
-
-  glm::vec3 front;
-  front.x = cos(glm::radians(yaw)) * cos(glm::radians(pitch));
-  front.y = sin(glm::radians(pitch));
-  front.z = sin(glm::radians(yaw)) * cos(glm::radians(pitch));
-  cameraFront = glm::normalize(front);
+  camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
-void scroll_callback(GLFWwindow* window, double xoffset, double yoffset)
+void scroll_callback(GLFWwindow* window, f64 xoffset, f64 yoffset)
 {
-  fov -= (float)yoffset;
-  if (fov < 1.0f)
-    fov = 1.0f;
-  if (fov > 45.0f)
-    fov = 45.0f;
+  camera.ProcessMouseScroll(yoffset);
 }
