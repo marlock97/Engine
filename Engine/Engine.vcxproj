@@ -148,6 +148,7 @@
     <ClCompile Include="src\Core\Base.cpp" />
     <ClCompile Include="src\Core\Rtti.cpp" />
     <ClCompile Include="src\Core\System.cpp" />
+    <ClCompile Include="src\Gfx\Camera.cpp" />
     <ClCompile Include="src\Gfx\GfxSystem.cpp" />
     <ClCompile Include="src\Gfx\glad.c" />
     <ClCompile Include="src\Gfx\Renderable.cpp" />
@@ -164,6 +165,7 @@
     <ClInclude Include="src\Core\DataTypes.h" />
     <ClInclude Include="src\Core\Rtti.h" />
     <ClInclude Include="src\Core\System.h" />
+    <ClInclude Include="src\Gfx\Camera.h" />
     <ClInclude Include="src\Gfx\GfxSystem.h" />
     <ClInclude Include="src\Gfx\Renderable.h" />
     <ClInclude Include="src\Gfx\Shader.h" />

@@ -81,6 +81,9 @@
     <ClCompile Include="src\Gfx\Texture.cpp">
       <Filter>src\Gfx</Filter>
     </ClCompile>
+    <ClCompile Include="src\Gfx\Camera.cpp">
+      <Filter>src\Gfx</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h">
@@ -126,6 +129,9 @@
       <Filter>src\Gfx</Filter>
     </ClInclude>
     <ClInclude Include="src\Gfx\Texture.h">
+      <Filter>src\Gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Gfx\Camera.h">
       <Filter>src\Gfx</Filter>
     </ClInclude>
   </ItemGroup>
