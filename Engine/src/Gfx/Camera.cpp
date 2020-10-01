@@ -46,10 +46,14 @@ namespace Engine
       camPosition_ += camForward_ * velocity;
     if (direction == CameraMovement::BACKWARD)
       camPosition_ -= camForward_ * velocity;
-    if (direction == CameraMovement::LEFT)
-      camPosition_ -= camForward_ * velocity;
     if (direction == CameraMovement::RIGHT)
-      camPosition_ += camForward_ * velocity;
+      camPosition_ += glm::normalize(glm::cross(camForward_, camUp_)) * velocity;
+    if (direction == CameraMovement::LEFT)
+      camPosition_ -= glm::normalize(glm::cross(camForward_, camUp_)) * velocity;
+    if (direction == CameraMovement::UP)
+      camPosition_ += camUp_ * velocity;
+    if (direction == CameraMovement::DOWN)
+      camPosition_ -= camUp_ * velocity;
   }
 
   // processes input received from a mouse input system. Expects the offset value in both the x and y direction.

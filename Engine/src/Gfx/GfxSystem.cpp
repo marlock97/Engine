@@ -27,6 +27,7 @@ namespace Engine
     {
       std::cout << "Failed to initialize GLAD" << std::endl;
     }
+    glEnable(GL_DEPTH_TEST);
   }
 }
   

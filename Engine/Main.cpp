@@ -51,7 +51,7 @@ void processInput(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos);
 void scroll_callback(GLFWwindow* window, f64 xoffset, f64 yoffset);
 
-int main()
+int main() 
 {
   //Init
   Engine::GfxSystem gfx;
@@ -60,7 +60,6 @@ int main()
   Engine::Window window;
   window.CreateWindow();
   gfx.InitGLAD();
-  glEnable(GL_DEPTH_TEST);
   
   //Input
   glfwSetInputMode(window.GetGLFWHandle(), GLFW_CURSOR, GLFW_CURSOR_DISABLED);
@@ -187,58 +186,6 @@ int main()
 
   Engine::Texture texture0("data/textures/container.jpg");
   Engine::Texture texture1("data/textures/awesomeface.png");
-
-  /*
-  //Load and create texture
-  unsigned int texture0, texture1;
-
-  //Texture 1
-  glGenTextures(1, &texture0);
-  glBindTexture(GL_TEXTURE_2D, texture0);
-
-  // set the texture wrapping/filtering options (on the currently bound texture object)
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-  // load and generate the texture
-  int width, height, nrChannels;
-
-  unsigned char* data = stbi_load("data/textures/container.jpg", &width, &height, &nrChannels, 0);
-
-  if (data) {
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGB, width, height, 0, GL_RGB, GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-  }
-  else {
-    std::cout << "Failed to load texture" << std::endl;
-  }
-  stbi_image_free(data);
-
-  //Texture 2
-  glGenTextures(1, &texture1);
-  glBindTexture(GL_TEXTURE_2D, texture1);
-
-  // set the texture wrapping/filtering options (on the currently bound texture object)
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_REPEAT);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-  glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-
-  // load and generate the texture
-  data = stbi_load("data/textures/awesomeface.png", &width, &height, &nrChannels, 0);
-
-  if (data) {
-    glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, width, height, 0, GL_RGBA, GL_UNSIGNED_BYTE, data);
-    glGenerateMipmap(GL_TEXTURE_2D);
-  }
-  else {
-    std::cout << "Failed to load texture" << std::endl;
-  }
-  stbi_image_free(data);
-  */
-
   shaderProgram.Use(); // don't forget to activate/use the shader before setting uniforms!
   shaderProgram.SetInt("texture0", 0);
   shaderProgram.SetInt("texture1", 1);
@@ -271,7 +218,6 @@ int main()
     // pass projection matrix to shader (note that in this case it could change every frame)
     mat4 projection = glm::perspective(glm::radians(camera.GetZoom()), (f32)WINDOW_WIDTH / (f32)WINDOW_HEIGHT, 0.1f, 100.0f);
     shaderProgram.SetMat4("projection", projection);
-
     // camera/view transformation
     mat4 view = camera.GetViewMatrix();
     shaderProgram.SetMat4("view", view);
@@ -286,13 +232,12 @@ int main()
 
     //glDrawArrays(GL_TRIANGLES, 0, 36);
 
-    for (u32 i = 0; i < 10; i++)
-    {
+    for (u32 i = 0; i < 10; i++) {
       // calculate the model matrix for each object and pass it to shader before drawing
-      glm::mat4 model = glm::mat4(1.0f); // make sure to initialize matrix to identity matrix first
+      mat4 model = mat4(1.0f); // make sure to initialize matrix to identity matrix first
       model = glm::translate(model, cubePositions[i]);
       float angle = 20.0f * i;
-      model = glm::rotate(model, glm::radians(angle), glm::vec3(1.0f, 0.3f, 0.5f));
+      model = glm::rotate(model, glm::radians(angle), vec3(1.0f, 0.3f, 0.5f));
       shaderProgram.SetMat4("model", model);
 
       glDrawArrays(GL_TRIANGLES, 0, 36);
@@ -313,8 +258,7 @@ int main()
 	return 0;
 }
 
-void processInput(GLFWwindow* window)
-{
+void processInput(GLFWwindow* window) {
   if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
     glfwSetWindowShouldClose(window, true);
 
@@ -326,12 +270,14 @@ void processInput(GLFWwindow* window)
     camera.ProcessKeyboard(Engine::Camera::CameraMovement::LEFT, deltaTime);
   if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
     camera.ProcessKeyboard(Engine::Camera::CameraMovement::RIGHT, deltaTime);
+  if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS)
+    camera.ProcessKeyboard(Engine::Camera::CameraMovement::UP, deltaTime);
+  if (glfwGetKey(window, GLFW_KEY_LEFT_SHIFT) == GLFW_PRESS)
+    camera.ProcessKeyboard(Engine::Camera::CameraMovement::DOWN, deltaTime);
 }
 
-void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos)
-{
-  if (firstMouse)
-  {
+void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos) {
+  if (firstMouse) {
     lastX = xpos;
     lastY = ypos;
     firstMouse = false;
@@ -346,7 +292,6 @@ void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos)
   camera.ProcessMouseMovement(xoffset, yoffset);
 }
 
-void scroll_callback(GLFWwindow* window, f64 xoffset, f64 yoffset)
-{
+void scroll_callback(GLFWwindow* window, f64 xoffset, f64 yoffset) {
   camera.ProcessMouseScroll(yoffset);
 }
