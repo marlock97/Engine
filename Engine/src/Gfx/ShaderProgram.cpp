@@ -7,6 +7,24 @@ namespace Engine
 {
   RTTI_IMPL(ShaderProgram, IBase);
 
+  ShaderProgram::ShaderProgram() {
+    SetGLHandle();
+  }
+  
+  ShaderProgram::ShaderProgram(Shader vertexShader, Shader fragmentShader) {
+    SetGLHandle();
+    AttachShader(vertexShader.getUID());
+    AttachShader(fragmentShader.getUID());
+    Link();
+  }
+
+  ShaderProgram::ShaderProgram(u32 vertexID, u32 fragmentID) {
+    SetGLHandle();
+    AttachShader(vertexID);
+    AttachShader(fragmentID);
+    Link();
+  }
+
   void ShaderProgram::SetGLHandle() {
     glHandle_ = glCreateProgram();
   }

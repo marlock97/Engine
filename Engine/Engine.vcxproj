@@ -178,8 +178,12 @@
     <ClInclude Include="src\Utils\Utils.h" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Gfx\shaders\fragment.shader" />
-    <None Include="src\Gfx\shaders\vertex.shader" />
+    <None Include="src\Gfx\shaders\ColorBox.fragment" />
+    <None Include="src\Gfx\shaders\ColorBox.vertex" />
+    <None Include="src\Gfx\shaders\LightBox.fragment" />
+    <None Include="src\Gfx\shaders\LightBox.vertex" />
+    <None Include="src\Gfx\shaders\TextBox.fragment" />
+    <None Include="src\Gfx\shaders\TextBox.vertex" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

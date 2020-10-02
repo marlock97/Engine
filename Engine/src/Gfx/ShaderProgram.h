@@ -15,6 +15,10 @@ namespace Engine
   {
     RTTI_DECL;
     public:
+      ShaderProgram();
+      ShaderProgram(Shader vertexShader, Shader fragmentShader);
+      ShaderProgram(u32 vertexID, u32 fragmentID);
+
       void SetGLHandle();
       void AttachShader(u32 shader);
       void AttachShader(const Shader& shader);
