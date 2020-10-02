@@ -279,32 +279,32 @@ int main()
     */
 
     // be sure to activate shader when setting uniforms/drawing objects
-    lightingShader.Use();
-    lightingShader.SetVec3("objectColor", objectColor);
-    lightingShader.SetVec3("lightColor", lightColor);
+    colorShader.Use();
+    colorShader.SetVec3("objectColor", objectColor);
+    colorShader.SetVec3("lightColor", lightColor);
 
     // view/projection transformations
     mat4 projection = glm::perspective(glm::radians(camera.GetZoom()), (f32)WINDOW_WIDTH / (f32)WINDOW_HEIGHT, 0.1f, 100.0f);
     mat4 view = camera.GetViewMatrix();
-    lightingShader.SetMat4("projection", projection);
-    lightingShader.SetMat4("view", view);
+    colorShader.SetMat4("projection", projection);
+    colorShader.SetMat4("view", view);
 
     // world transformation
     mat4 model = mat4(1.0f);
-    lightingShader.SetMat4("model", model);
+    colorShader.SetMat4("model", model);
 
     // render the cube
     glBindVertexArray(cubeVAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
     // also draw the lamp object
-    colorShader.Use();
-    colorShader.SetMat4("projection", projection);
-    colorShader.SetMat4("view", view);
+    lightingShader.Use();
+    lightingShader.SetMat4("projection", projection);
+    lightingShader.SetMat4("view", view);
     model = mat4(1.0f);
     model = glm::translate(model, lightPos);
     model = glm::scale(model, vec3(0.2f)); // a smaller cube
-    colorShader.SetMat4("model", model);
+    lightingShader.SetMat4("model", model);
 
     //Render light object
     glBindVertexArray(lightCubeVAO);
