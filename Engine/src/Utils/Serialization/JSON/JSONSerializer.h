@@ -21,6 +21,7 @@ namespace Engine
 
 	class JSONSerializer : public ISerializer
 	{
+		RTTI_DECL;
 	public:
 		JSONSerializer(EMode mode, JSONSerializer * parent = NULL);
 		virtual ~JSONSerializer();
@@ -30,8 +31,8 @@ namespace Engine
 		virtual void StreamRead(const char * name, f32 & out);
 		virtual void StreamRead(const char * name, bool & out);
 		virtual void StreamRead(const char * name, std::string & out);
-		//virtual void StreamRead(const char * name, Vec2 & out);
-		//virtual void StreamRead(const char * name, Vec3 & out);
+		virtual void StreamRead(const char * name, vec2 & out);
+		virtual void StreamRead(const char * name, vec3 & out);
 		//virtual void StreamRead(const char * name, Color & out);
 		//virtual void StreamRead(const char * name, Transform2D & out);
 		//virtual void StreamRead(const char * name, Transform3D & out);
@@ -41,8 +42,8 @@ namespace Engine
 		virtual void StreamWrite(const char * name, const f32 & in);
 		virtual void StreamWrite(const char * name, const bool & in);
 		virtual void StreamWrite(const char * name, const std::string & in);
-		//virtual void StreamWrite(const char * name, const Vec2 & in);
-		//virtual void StreamWrite(const char * name, const Vec3 & in);
+		virtual void StreamWrite(const char * name, const vec2 & in);
+		virtual void StreamWrite(const char * name, const vec3 & in);
 		//virtual void StreamWrite(const char * name, const Color & in);
 		//virtual void StreamWrite(const char * name, const Transform2D & in);
 		//virtual void StreamWrite(const char * name, const Transform3D & in);

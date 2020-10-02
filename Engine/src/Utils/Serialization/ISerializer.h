@@ -11,12 +11,14 @@
 // ---------------------------------------------------------------------------
 #pragma once
 #include "../../Core/Base.h"
+#include "../../Core/Rtti.h"
 #include "../../Core/DataTypes.h"
 
 namespace Engine
 {
 	class ISerializer : public IBase
 	{
+	RTTI_DECL;
 	public:
 		enum EMode { eRead, eWrite };
 	public:

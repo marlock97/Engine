@@ -84,6 +84,9 @@
     <ClCompile Include="src\Gfx\Camera.cpp">
       <Filter>src\Gfx</Filter>
     </ClCompile>
+    <ClCompile Include="src\Utils\Serialization\ISerializer.cpp">
+      <Filter>src\Utils\Serialization</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Application\Application.h">

@@ -8,9 +8,9 @@
 \brief  JSON serialization.
 
 \log    01/09/2020 -> Initial version.
+*				02/10/2020 -> Added vec2 and vec3.
 */
 /************************************************************************/
-
 #include "JSONSerializer.h"
 #include <iostream>
 #include <fstream>
@@ -22,103 +22,76 @@
 
 namespace Engine
 {
-	JSONSerializer::JSONSerializer(ISerializer::EMode mode, JSONSerializer * parent)
-		: ISerializer(mode), mParentSerializer(parent)
-	{
+	RTTI_IMPL(JSONSerializer, ISerializer);
+
+	JSONSerializer::JSONSerializer(ISerializer::EMode mode, JSONSerializer * parent) : ISerializer(mode), mParentSerializer(parent){
 	}
 
-	JSONSerializer::~JSONSerializer()
-	{
+	JSONSerializer::~JSONSerializer() {
 		DeleteChildNodes();
 	}
 
-	void JSONSerializer::StreamRead(const char * name, s32 & out)
-	{
-		FOR_EACH(child, mChildNodes)
-		{
+	void JSONSerializer::StreamRead(const char * name, s32 & out) {
+		FOR_EACH(child, mChildNodes) {
 			JSONSerializer * childNode = *child;
 			if (childNode->name_ == name && childNode->mValue.isInt())
-			{
 				out = childNode->mValue.asInt();
-			}
 		}
 	}
 
-	void JSONSerializer::StreamRead(const char * name, u32 & out)
-	{
-		FOR_EACH(child, mChildNodes)
-		{
+	void JSONSerializer::StreamRead(const char * name, u32 & out) {
+		FOR_EACH(child, mChildNodes) {
 			JSONSerializer * childNode = *child;
 			if (childNode->name_ == name && childNode->mValue.isUInt())
-			{
 				out = childNode->mValue.asUInt();
-			}
 		}
 	}
 
-	void JSONSerializer::StreamRead(const char * name, f32 & out)
-	{
-		FOR_EACH(child, mChildNodes)
-		{
+	void JSONSerializer::StreamRead(const char * name, f32 & out) {
+		FOR_EACH(child, mChildNodes) {
 			JSONSerializer * childNode = *child;
 			if (childNode->name_ == name && childNode->mValue.isDouble())
-			{
 				out = childNode->mValue.asFloat();
-			}
 		}
 	}
 
-	void JSONSerializer::StreamRead(const char * name, bool & out)
-	{
-		FOR_EACH(child, mChildNodes)
-		{
+	void JSONSerializer::StreamRead(const char * name, bool & out) {
+		FOR_EACH(child, mChildNodes) {
 			JSONSerializer * childNode = *child;
 			if (childNode->name_ == name && childNode->mValue.isBool())
-			{
 				out = childNode->mValue.asBool();
-			}
 		}
 	}
 
-	void JSONSerializer::StreamRead(const char * name, std::string & out)
-	{
-		FOR_EACH(child, mChildNodes)
-		{
+	void JSONSerializer::StreamRead(const char * name, std::string & out) {
+		FOR_EACH(child, mChildNodes) {
 			JSONSerializer * childNode = *child;
 			if (childNode->name_ == name && childNode->mValue.isString())
-			{
 				out = childNode->mValue.asString();
-			}
 		}
 	}
-	/*
-	void JSONSerializer::StreamRead(const char * name, Vec2 & out)
-	{
-		FOR_EACH(child, mChildNodes)
-		{
+	
+	void JSONSerializer::StreamRead(const char * name, vec2 & out) {
+		FOR_EACH(child, mChildNodes) {
 			JSONSerializer * childNode = *child;
-			if (childNode->mName == name && childNode->mValue.isObject())
-			{
+			if (childNode->name_ == name && childNode->mValue.isObject()) {
 				out.x = static_cast<float>(childNode->mValue.get("x", mValue).asDouble());
 				out.y = static_cast<float>(childNode->mValue.get("y", mValue).asDouble());
 			}
 		}
 	}
 
-	void JSONSerializer::StreamRead(const char * name, Vec3 & out)
-	{
-		FOR_EACH(child, mChildNodes)
-		{
+	void JSONSerializer::StreamRead(const char * name, vec3 & out) {
+		FOR_EACH(child, mChildNodes) {
 			JSONSerializer * childNode = *child;
-			if (childNode->mName == name && childNode->mValue.isObject())
-			{
+			if (childNode->name_ == name && childNode->mValue.isObject()) {
 				out.x = static_cast<float>(childNode->mValue.get("x", mValue).asDouble());
 				out.y = static_cast<float>(childNode->mValue.get("y", mValue).asDouble());
 				out.z = static_cast<float>(childNode->mValue.get("z", mValue).asDouble());
 			}
 		}
 	}
-
+	/*
 	void JSONSerializer::StreamRead(const char * name, Transform2D & out)
 	{
 		FOR_EACH(child, mChildNodes)
@@ -141,46 +114,38 @@ namespace Engine
 		}
 	}
 	*/
-	void JSONSerializer::StreamWrite(const char * name, const s32 & in)
-	{
+	void JSONSerializer::StreamWrite(const char * name, const s32 & in) {
 		mValue[name] = in;
 	}
 
-	void JSONSerializer::StreamWrite(const char * name, const u32 & in)
-	{
+	void JSONSerializer::StreamWrite(const char * name, const u32 & in) {
 		mValue[name] = in;
 	}
 
-	void JSONSerializer::StreamWrite(const char * name, const f32 & in)
-	{
+	void JSONSerializer::StreamWrite(const char * name, const f32 & in) {
 		mValue[name] = in;
 	}
 
-	void JSONSerializer::StreamWrite(const char * name, const bool & in)
-	{
+	void JSONSerializer::StreamWrite(const char * name, const bool & in) {
 		mValue[name] = in;
 	}
 
-	void JSONSerializer::StreamWrite(const char * name, const std::string & in)
-	{
+	void JSONSerializer::StreamWrite(const char * name, const std::string & in) {
 		mValue[name] = in;
 	}
-	/*
-	void JSONSerializer::StreamWrite(const char * name, const Vec2 & in)
-	{
+	
+	void JSONSerializer::StreamWrite(const char * name, const vec2 & in) {
 		mValue[name]["x"] = in.x;
 		mValue[name]["y"] = in.y;
 	}
 
-	void JSONSerializer::StreamWrite(const char * name, const Vec3 & in)
-	{
+	void JSONSerializer::StreamWrite(const char * name, const vec3 & in) {
 		mValue[name]["x"] = in.x;
 		mValue[name]["y"] = in.y;
 		mValue[name]["z"] = in.z;
 	}
-
-	void JSONSerializer::StreamWrite(const char * name, const Transform2D & in)
-	{
+	/*
+	void JSONSerializer::StreamWrite(const char * name, const Transform2D & in) {
 		mValue[name]["Translation"]["x"] = in.GetPosition().x;
 		mValue[name]["Translation"]["y"] = in.GetPosition().y;
 
@@ -192,24 +157,19 @@ namespace Engine
 	*/
 
 
-	ISerializer * JSONSerializer::BeginNode(const char * name)
-	{
+	ISerializer * JSONSerializer::BeginNode(const char * name) {
 		JSONSerializer * newNode = new JSONSerializer(mMode, this);
 		newNode->setName(name);
 		mChildNodes.push_back(newNode);
 		return newNode;
 	}
 
-	void JSONSerializer::EndNode(ISerializer * secSerializer)
-	{
+	void JSONSerializer::EndNode(ISerializer * secSerializer) {
 		FOR_EACH(it, mChildNodes)
-		{
 			mValue[(*it)->getName()] = (*it)->mValue;
-		}
 	}
 
-	ISerializer * JSONSerializer::FirstChildNode(const char * name)
-	{
+	ISerializer * JSONSerializer::FirstChildNode(const char * name) {
 		// NO CHILDREN NODESS
 		if (mChildNodes.empty())
 			return NULL;
@@ -219,8 +179,7 @@ namespace Engine
 			return *mChildNodes.begin();
 
 		// name exists -> find the node in the list
-		FOR_EACH(nodeIt, mChildNodes)
-		{
+		FOR_EACH(nodeIt, mChildNodes) {
 			// name is found
 			if ((*nodeIt)->name_ == name)
 				return *nodeIt;
@@ -230,19 +189,16 @@ namespace Engine
 		return NULL;
 	}
 
-	ISerializer * JSONSerializer::NextSiblingNode()
-	{
+	ISerializer * JSONSerializer::NextSiblingNode() {
 		// root node -> no sibling
 		if (mParentSerializer == NULL)
 			return NULL;
 
 		// find ourselves
 		auto it = mParentSerializer->mChildNodes.begin();
-		for (; it != mParentSerializer->mChildNodes.end(); ++it)
-		{
+		for (; it != mParentSerializer->mChildNodes.end(); ++it) {
 			// we found ourselves, get next
-			if (*it == this)
-			{
+			if (*it == this) {
 				// increment iterator
 				++it;
 
@@ -262,27 +218,17 @@ namespace Engine
 		return NULL;
 	}
 
-	ISerializer * JSONSerializer::ParentNode()
-	{
+	ISerializer * JSONSerializer::ParentNode() {
 		if (mParentSerializer)
-		{
 			return mParentSerializer;
-		}
 		else
-		{
 			return this;
-		}
 	}
 
-	void ReadJSONChildNodesRec(JSONSerializer * parent)
-	{
+	void ReadJSONChildNodesRec(JSONSerializer * parent) {
 		using namespace std;
 		// get the values
-		for (Json::Value::iterator it = parent->mValue.begin();
-			it != parent->mValue.end();
-			++it)
-		{
-
+		for (Json::Value::iterator it = parent->mValue.begin(); it != parent->mValue.end(); ++it) {
 			JSONSerializer * newNode = new JSONSerializer(parent->GetMode(), parent);
 			newNode->setName(it.key().asCString());
 			newNode->mValue = *it;
@@ -296,32 +242,26 @@ namespace Engine
 
 	/// \fn		LoadFile
 	/// \brief	Opens a text file and reads all the data from it. 
-	bool JSONSerializer::LoadFile(const char * filename)
-	{
+	bool JSONSerializer::LoadFile(const char * filename) {
 		if (!filename)
-		{
 			return false;
-		}
 
 		if (!mFileName.empty())
-		{
 			mFileName.erase();
-		}
 
 		mFileName = filename;
-
 		std::ifstream is(mFileName);
 
-		if (is.is_open())
-		{
-			Json::Reader r;
-			if (!r.parse(is, mValue, true)) {
+		if (is.is_open()) {
+			Json::CharReaderBuilder jsonReader;
+			std::string errs;
+			if (!Json::parseFromStream(jsonReader, is, &mValue, &errs)) {
 				//for some reason it always fails to parse
-				std::cout << "Failed to parse configuration\n"
-					<< r.getFormattedErrorMessages();
+				std::cout << "Failed to parse configuration\n";
 			}
 			ReadJSONChildNodesRec(this);
 			is.close();
+
 			return true;
 		}
 
@@ -331,36 +271,19 @@ namespace Engine
 	/// \fn		ReloadFile
 	/// \brief	Re-Opens the previous text file associted and 
 	///			reads all the data from it.
-	void JSONSerializer::ReloadFile()
-	{
+	void JSONSerializer::ReloadFile() {
 		if (!mFileName.empty())
-		{
 			LoadFile(mFileName.c_str());
-		}
 	}
 
 	/// \fn		WriteToFile
 	/// \brief	Writes the data stored in mSource to the provided
 	///			text file.
-	void JSONSerializer::WriteToFile(const char * filename)
-	{
-		std::ofstream fp;
-
-		if (filename)
-		{
-			fp.open(filename, std::ofstream::out);
-		}
-		else if (!mFileName.empty())
-		{
-			fp.open(mFileName.c_str(), std::ofstream::out);
-		}
-
-		if (fp.is_open())
-		{
-			Json::StyledStreamWriter writer;
-			writer.write(fp, mValue);
-			fp.close();
-		}
+	void JSONSerializer::WriteToFile(const char * filename) {
+			Json::StreamWriterBuilder builder;
+			std::unique_ptr<Json::StreamWriter> writer(builder.newStreamWriter());
+			std::ofstream outputFileStream(filename);
+			writer->write(mValue, &outputFileStream);
 	}
 
 	// --------------------------------------------------------------------
@@ -368,8 +291,7 @@ namespace Engine
 
 	/// \fn		GetRootSerializer
 	/// \brief	Walks up the hierachy to the root serialzier and returns it.
-	JSONSerializer * JSONSerializer::GetRootSerializer()
-	{
+	JSONSerializer * JSONSerializer::GetRootSerializer() {
 		// walk up
 		JSONSerializer * pNode = this;
 		while (pNode->mParentSerializer)
@@ -379,12 +301,10 @@ namespace Engine
 		return pNode;
 	}
 
-	void JSONSerializer::DeleteChildNodes()
-	{
+	void JSONSerializer::DeleteChildNodes() {
 		// delete the children
 		FOR_EACH(it, mChildNodes)
 			delete *it;
 		mChildNodes.clear();
 	}
-
-} //!ND
+}
