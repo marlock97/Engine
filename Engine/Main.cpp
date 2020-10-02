@@ -51,7 +51,25 @@ void processInput(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos);
 void scroll_callback(GLFWwindow* window, f64 xoffset, f64 yoffset);
 
-int main() 
+struct Material {
+  vec3 ambient;
+  vec3 diffuse;
+  vec3 specular;
+  float shininess;
+};
+
+struct Light {
+  vec3 position;
+
+  vec3 ambient;
+  vec3 diffuse;
+  vec3 specular;
+};
+
+std::vector<Material> materials;
+Light light;
+
+int main()
 {
   //Init
   Engine::GfxSystem gfx;
@@ -224,7 +242,7 @@ int main()
   glEnableVertexAttribArray(0);
 
   vec3 lightColor(1.0f, 1.0f, 1.0f);
-  vec3 objectColor(1.0f, 0.5f, 0.3f);
+  //vec3 objectColor(1.0f, 0.5f, 0.3f);
   vec3 lightPos(0.0f, 0.0f, 1.0f);
 
   //Render loop
@@ -245,6 +263,10 @@ int main()
     // change the light's position values over time (can be done anywhere in the render loop actually, but try to do it at least before using the light source positions)
     lightPos.x = cos(glfwGetTime());
     lightPos.y = sin(glfwGetTime());
+
+    lightColor.x = sin(glfwGetTime() * 2.0f);
+    lightColor.y = sin(glfwGetTime() * 0.7f);
+    lightColor.z = sin(glfwGetTime() * 1.3f);
 
     //Textures
     //glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
@@ -288,9 +310,21 @@ int main()
     // be sure to activate shader when setting uniforms/drawing objects
     lightingShader.Use();
     lightingShader.SetVec3("viewPos", camera.GetCamPosition());
-    lightingShader.SetVec3("objectColor", objectColor);
-    lightingShader.SetVec3("lightColor", lightColor);
     lightingShader.SetVec3("lightPos", lightPos);
+
+    //Set cube material
+    lightingShader.SetVec3("material.ambient", 1.0f, 0.5f, 0.31f);
+    lightingShader.SetVec3("material.diffuse", 1.0f, 0.5f, 0.31f);
+    lightingShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);
+    lightingShader.SetFloat("material.shininess", 32.0f);
+
+    //Set light
+    glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
+    glm::vec3 ambientColor = diffuseColor * glm::vec3(0.2f);
+
+    lightingShader.SetVec3("light.ambient", ambientColor);
+    lightingShader.SetVec3("light.diffuse", diffuseColor);
+    lightingShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
     // view/projection transformations
     mat4 projection = glm::perspective(glm::radians(camera.GetZoom()), (f32)WINDOW_WIDTH / (f32)WINDOW_HEIGHT, 0.1f, 100.0f);
