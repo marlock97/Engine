@@ -136,22 +136,22 @@
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
-    <None Include="src\Gfx\shaders\TextBox.vertex">
+    <None Include="src\Gfx\shaders\LightBox.frag">
       <Filter>src\Gfx\shaders</Filter>
     </None>
-    <None Include="src\Gfx\shaders\TextBox.fragment">
+    <None Include="src\Gfx\shaders\LightBox.vert">
       <Filter>src\Gfx\shaders</Filter>
     </None>
-    <None Include="src\Gfx\shaders\LightBox.vertex">
+    <None Include="src\Gfx\shaders\Lighting.frag">
       <Filter>src\Gfx\shaders</Filter>
     </None>
-    <None Include="src\Gfx\shaders\LightBox.fragment">
+    <None Include="src\Gfx\shaders\Lighting.vert">
       <Filter>src\Gfx\shaders</Filter>
     </None>
-    <None Include="src\Gfx\shaders\ColorBox.fragment">
+    <None Include="src\Gfx\shaders\TextBox.frag">
       <Filter>src\Gfx\shaders</Filter>
     </None>
-    <None Include="src\Gfx\shaders\ColorBox.vertex">
+    <None Include="src\Gfx\shaders\TextBox.vert">
       <Filter>src\Gfx\shaders</Filter>
     </None>
   </ItemGroup>

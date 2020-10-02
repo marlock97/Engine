@@ -41,12 +41,12 @@ f32 deltaTime = 0.0f;	// Time between current frame and last frame
 f32 lastFrame = 0.0f; // Time of last frame
 
 //Camera
-Engine::Camera camera(glm::vec3(0.0f, 0.0f, 3.0f));
-f32 lastX = WINDOW_WIDTH / 2.0f;
-f32 lastY = WINDOW_HEIGHT / 2.0f;
-bool firstMouse = true;
+Engine::Camera camera(glm::vec3(0.0f, 0.0f, 5.0f));
 
 //Input
+bool firstMouse = true;
+f32 lastX = WINDOW_WIDTH / 2.0f;
+f32 lastY = WINDOW_HEIGHT / 2.0f;
 void processInput(GLFWwindow* window);
 void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos);
 void scroll_callback(GLFWwindow* window, f64 xoffset, f64 yoffset);
@@ -67,20 +67,20 @@ int main()
   glfwSetScrollCallback(window.GetGLFWHandle(), scroll_callback);
 
   //Graphics
-  Engine::Shader lightingVertex("src/Gfx/shaders/LightBox.vertex", Engine::Shader::ShaderType::vertex);
-  Engine::Shader lightingFragment("src/Gfx/shaders/LightBox.fragment", Engine::Shader::ShaderType::fragment);
+  Engine::Shader lightBoxVertex("src/Gfx/shaders/LightBox.vert", Engine::Shader::ShaderType::vertex);
+  Engine::Shader lightBoxFragment("src/Gfx/shaders/LightBox.frag", Engine::Shader::ShaderType::fragment);
   //Engine::ShaderProgram lightingShader(lightingVertex.getUID(), lightingFragment.getUID());
+  Engine::ShaderProgram lightBoxShader;
+  lightBoxShader.AttachShader(lightBoxVertex);
+  lightBoxShader.AttachShader(lightBoxFragment);
+  lightBoxShader.Link();
+
+  Engine::Shader lightingVertex("src/Gfx/shaders/Lighting.vert", Engine::Shader::ShaderType::vertex);
+  Engine::Shader lightingFragment("src/Gfx/shaders/Lighting.frag", Engine::Shader::ShaderType::fragment);
   Engine::ShaderProgram lightingShader;
   lightingShader.AttachShader(lightingVertex);
   lightingShader.AttachShader(lightingFragment);
   lightingShader.Link();
-
-  Engine::Shader colorVertex("src/Gfx/shaders/ColorBox.vertex", Engine::Shader::ShaderType::vertex);
-  Engine::Shader colorFragment("src/Gfx/shaders/ColorBox.fragment", Engine::Shader::ShaderType::fragment);
-  Engine::ShaderProgram colorShader;
-  colorShader.AttachShader(colorVertex);
-  colorShader.AttachShader(colorFragment);
-  colorShader.Link();
 
   /*
   //Vertex data
@@ -100,48 +100,48 @@ int main()
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   f32 cubeVtx[] = {
-      //Position          
-      -0.5f, -0.5f, -0.5f,  //0.0f, 0.0f,
-       0.5f, -0.5f, -0.5f,  //1.0f, 0.0f,
-       0.5f,  0.5f, -0.5f,  //1.0f, 1.0f,
-       0.5f,  0.5f, -0.5f,  //1.0f, 1.0f,
-      -0.5f,  0.5f, -0.5f,  //0.0f, 1.0f,
-      -0.5f, -0.5f, -0.5f,  //0.0f, 0.0f,
-                            //
-      -0.5f, -0.5f,  0.5f,  //0.0f, 0.0f,
-       0.5f, -0.5f,  0.5f,  //1.0f, 0.0f,
-       0.5f,  0.5f,  0.5f,  //1.0f, 1.0f,
-       0.5f,  0.5f,  0.5f,  //1.0f, 1.0f,
-      -0.5f,  0.5f,  0.5f,  //0.0f, 1.0f,
-      -0.5f, -0.5f,  0.5f,  //0.0f, 0.0f,
-                            //
-      -0.5f,  0.5f,  0.5f,  //1.0f, 0.0f,
-      -0.5f,  0.5f, -0.5f,  //1.0f, 1.0f,
-      -0.5f, -0.5f, -0.5f,  //0.0f, 1.0f,
-      -0.5f, -0.5f, -0.5f,  //0.0f, 1.0f,
-      -0.5f, -0.5f,  0.5f,  //0.0f, 0.0f,
-      -0.5f,  0.5f,  0.5f,  //1.0f, 0.0f,
-                            //
-       0.5f,  0.5f,  0.5f,  //1.0f, 0.0f,
-       0.5f,  0.5f, -0.5f,  //1.0f, 1.0f,
-       0.5f, -0.5f, -0.5f,  //0.0f, 1.0f,
-       0.5f, -0.5f, -0.5f,  //0.0f, 1.0f,
-       0.5f, -0.5f,  0.5f,  //0.0f, 0.0f,
-       0.5f,  0.5f,  0.5f,  //1.0f, 0.0f,
-                            //
-      -0.5f, -0.5f, -0.5f,  //0.0f, 1.0f,
-       0.5f, -0.5f, -0.5f,  //1.0f, 1.0f,
-       0.5f, -0.5f,  0.5f,  //1.0f, 0.0f,
-       0.5f, -0.5f,  0.5f,  //1.0f, 0.0f,
-      -0.5f, -0.5f,  0.5f,  //0.0f, 0.0f,
-      -0.5f, -0.5f, -0.5f,  //0.0f, 1.0f,
-                            //
-      -0.5f,  0.5f, -0.5f,  //0.0f, 1.0f,
-       0.5f,  0.5f, -0.5f,  //1.0f, 1.0f,
-       0.5f,  0.5f,  0.5f,  //1.0f, 0.0f,
-       0.5f,  0.5f,  0.5f,  //1.0f, 0.0f,
-      -0.5f,  0.5f,  0.5f,  //0.0f, 0.0f,
-      -0.5f,  0.5f, -0.5f   //0.0f, 1.0f
+      //Position            //Normals
+      -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
+       0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+       0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+       0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+      -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+      -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+
+      -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+       0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+       0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+       0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+      -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+      -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+
+      -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+      -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+      -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+      -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
+      -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+      -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+
+       0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+       0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+       0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+       0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
+       0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+       0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+
+      -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+       0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+       0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+       0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+      -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
+      -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+
+      -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+       0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
+       0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+       0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+      -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
+      -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
   };
 
   // world space positions of our cubes
@@ -206,23 +206,26 @@ int main()
   glBindVertexArray(cubeVAO);
 
   // position attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(f32), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
+  // normal attribute
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+  glEnableVertexAttribArray(1);
+
 
   // second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
   unsigned int lightCubeVAO;
   glGenVertexArrays(1, &lightCubeVAO);
   glBindVertexArray(lightCubeVAO);
 
-  // we only need to bind to the VBO (to link it with glVertexAttribPointer), no need to fill it; the VBO's data already contains all we need (it's already bound, but we do it again for educational purposes)
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
-
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(f32), (void*)0);
+  // note that we update the lamp's position attribute's stride to reflect the updated buffer data
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
 
   vec3 lightColor(1.0f, 1.0f, 1.0f);
-  vec3 objectColor(1.0f, 0.5f, 0.31f);
-  vec3 lightPos(1.2f, 1.0f, 2.0f);
+  vec3 objectColor(1.0f, 0.5f, 0.3f);
+  vec3 lightPos(0.0f, 0.0f, 1.0f);
 
   //Render loop
   while (!glfwWindowShouldClose(window.GetGLFWHandle())) {
@@ -238,6 +241,10 @@ int main()
     //Render
     glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    // change the light's position values over time (can be done anywhere in the render loop actually, but try to do it at least before using the light source positions)
+    lightPos.x = cos(glfwGetTime());
+    lightPos.y = sin(glfwGetTime());
 
     //Textures
     //glActiveTexture(GL_TEXTURE0); // activate the texture unit first before binding texture
@@ -279,32 +286,35 @@ int main()
     */
 
     // be sure to activate shader when setting uniforms/drawing objects
-    colorShader.Use();
-    colorShader.SetVec3("objectColor", objectColor);
-    colorShader.SetVec3("lightColor", lightColor);
+    lightingShader.Use();
+    lightingShader.SetVec3("viewPos", camera.GetCamPosition());
+    lightingShader.SetVec3("objectColor", objectColor);
+    lightingShader.SetVec3("lightColor", lightColor);
+    lightingShader.SetVec3("lightPos", lightPos);
 
     // view/projection transformations
     mat4 projection = glm::perspective(glm::radians(camera.GetZoom()), (f32)WINDOW_WIDTH / (f32)WINDOW_HEIGHT, 0.1f, 100.0f);
     mat4 view = camera.GetViewMatrix();
-    colorShader.SetMat4("projection", projection);
-    colorShader.SetMat4("view", view);
+    lightingShader.SetMat4("projection", projection);
+    lightingShader.SetMat4("view", view);
 
     // world transformation
     mat4 model = mat4(1.0f);
-    colorShader.SetMat4("model", model);
+    lightingShader.SetMat4("model", model);
 
     // render the cube
     glBindVertexArray(cubeVAO);
     glDrawArrays(GL_TRIANGLES, 0, 36);
 
     // also draw the lamp object
-    lightingShader.Use();
-    lightingShader.SetMat4("projection", projection);
-    lightingShader.SetMat4("view", view);
+    lightBoxShader.Use();
+    lightBoxShader.SetVec3("lightColor", lightColor);
+    lightBoxShader.SetMat4("projection", projection);
+    lightBoxShader.SetMat4("view", view);
     model = mat4(1.0f);
     model = glm::translate(model, lightPos);
     model = glm::scale(model, vec3(0.2f)); // a smaller cube
-    lightingShader.SetMat4("model", model);
+    lightBoxShader.SetMat4("model", model);
 
     //Render light object
     glBindVertexArray(lightCubeVAO);
@@ -363,3 +373,46 @@ void mouse_callback(GLFWwindow* window, f64 xpos, f64 ypos) {
 void scroll_callback(GLFWwindow* window, f64 xoffset, f64 yoffset) {
   camera.ProcessMouseScroll(yoffset);
 }
+
+//Cube UVs
+//0.0f, 0.0f,
+//1.0f, 0.0f,
+//1.0f, 1.0f,
+//1.0f, 1.0f,
+//0.0f, 1.0f,
+//0.0f, 0.0f,
+//
+//0.0f, 0.0f,
+//1.0f, 0.0f,
+//1.0f, 1.0f,
+//1.0f, 1.0f,
+//0.0f, 1.0f,
+//0.0f, 0.0f,
+//
+//1.0f, 0.0f,
+//1.0f, 1.0f,
+//0.0f, 1.0f,
+//0.0f, 1.0f,
+//0.0f, 0.0f,
+//1.0f, 0.0f,
+//
+//1.0f, 0.0f,
+//1.0f, 1.0f,
+//0.0f, 1.0f,
+//0.0f, 1.0f,
+//0.0f, 0.0f,
+//1.0f, 0.0f,
+//
+//0.0f, 1.0f,
+//1.0f, 1.0f,
+//1.0f, 0.0f,
+//1.0f, 0.0f,
+//0.0f, 0.0f,
+//0.0f, 1.0f,
+//
+//0.0f, 1.0f,
+//1.0f, 1.0f,
+//1.0f, 0.0f,
+//1.0f, 0.0f,
+//0.0f, 0.0f,
+//0.0f, 1.0f
