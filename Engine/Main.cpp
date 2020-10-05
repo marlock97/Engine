@@ -477,7 +477,6 @@ int main()
     lightingShader.SetMat4("projection", projection);
     lightingShader.SetMat4("view", view);
 
-
     mat4 model = mat4(1.0f);
     u32 cubeCounter = 0;
     for(auto& mat : materials) {
