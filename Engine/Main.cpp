@@ -397,8 +397,10 @@ int main()
   vec3 objectPos(0.0f, 0.0f, 0.0f);
 
   Engine::Texture diffuseMap("data/textures/container2.png");
+  Engine::Texture specularMap("data/textures/container2_specular.png");
   lightingShader.Use(); // don't forget to activate/use the shader before setting uniforms!
   lightingShader.SetInt("material.diffuse", 0);
+  lightingShader.SetInt("material.specular", 1);
 
   //Render loop
   while (!glfwWindowShouldClose(window.GetGLFWHandle())) {
@@ -490,7 +492,7 @@ int main()
       Material cubeMaterial = mat.second;
       //lightingShader.SetVec3("material.ambient", cubeMaterial.ambient);
       lightingShader.SetInt("material.diffuse", 0);
-      lightingShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);// cubeMaterial.specular);
+      lightingShader.SetInt("material.specular", 1);// cubeMaterial.specular);
       lightingShader.SetFloat("material.shininess", 64.0f);// cubeMaterial.shininess * 128.0);
 
       // world transformation
@@ -501,6 +503,10 @@ int main()
       //Activate diffuse texture
       glActiveTexture(GL_TEXTURE0);
       glBindTexture(GL_TEXTURE_2D, diffuseMap.GetGLHandle());
+
+      //Activate specular map
+      glActiveTexture(GL_TEXTURE1);
+      glBindTexture(GL_TEXTURE_2D, specularMap.GetGLHandle());
 
       // render the cube
       glBindVertexArray(cubeVAO);
