@@ -388,7 +388,7 @@ int main()
 
   glBindBuffer(GL_ARRAY_BUFFER, VBO);
   // note that we update the lamp's position attribute's stride to reflect the updated buffer data
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
 
   vec3 lightColor(1.0f, 1.0f, 1.0f);
