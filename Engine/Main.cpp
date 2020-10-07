@@ -398,9 +398,11 @@ int main()
 
   Engine::Texture diffuseMap("data/textures/container2.png");
   Engine::Texture specularMap("data/textures/container2_specular.png");
+  Engine::Texture emissionMap("data/textures/matrix.jpg");
   lightingShader.Use(); // don't forget to activate/use the shader before setting uniforms!
   lightingShader.SetInt("material.diffuse", 0);
   lightingShader.SetInt("material.specular", 1);
+  lightingShader.SetInt("material.emission", 2);
 
   //Render loop
   while (!glfwWindowShouldClose(window.GetGLFWHandle())) {
@@ -507,6 +509,10 @@ int main()
       //Activate specular map
       glActiveTexture(GL_TEXTURE1);
       glBindTexture(GL_TEXTURE_2D, specularMap.GetGLHandle());
+
+      //Activate emission texture
+      glActiveTexture(GL_TEXTURE2);
+      glBindTexture(GL_TEXTURE_2D, emissionMap.GetGLHandle());
 
       // render the cube
       glBindVertexArray(cubeVAO);

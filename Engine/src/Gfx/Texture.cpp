@@ -33,15 +33,12 @@ namespace Engine
     //Load the data
     unsigned char* data = stbi_load(filename.c_str(), &width_, &height_, &nrChannels_, 0);
 
-    //Get format
-    std::string ext = filename.substr(filename.find_last_of('.'));
-
-    if (ext == ".jpg") {
+    if (nrChannels_ == 1)
+      type_ = GL_RED;
+    else if (nrChannels_ == 3)
       type_ = GL_RGB;
-    }
-    else if(ext == ".png") {
+    else if (nrChannels_ == 4)
       type_ = GL_RGBA;
-    }
 
     if (data) {
       glTexImage2D(GL_TEXTURE_2D, 0, type_, width_, height_, 0, type_, GL_UNSIGNED_BYTE, data);
