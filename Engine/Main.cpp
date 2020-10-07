@@ -471,7 +471,7 @@ int main()
     // be sure to activate shader when setting uniforms/drawing objects
     lightingShader.Use();
     lightingShader.SetVec3("viewPos", camera.GetCamPosition());
-    lightingShader.SetVec3("lightPos", lightPos);
+    lightingShader.SetVec3("light.position", lightPos);
 
     //Set light
     glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);
