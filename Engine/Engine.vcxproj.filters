@@ -157,5 +157,11 @@
     <None Include="src\Gfx\shaders\TextBox.vert">
       <Filter>src\Gfx\shaders</Filter>
     </None>
+    <None Include="src\Gfx\shaders\MaterialLighting.frag">
+      <Filter>src\Gfx\shaders</Filter>
+    </None>
+    <None Include="src\Gfx\shaders\MaterialLighting.vert">
+      <Filter>src\Gfx\shaders</Filter>
+    </None>
   </ItemGroup>
 </Project>

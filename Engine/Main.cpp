@@ -266,48 +266,48 @@ int main()
 
   // set up vertex data (and buffer(s)) and configure vertex attributes
   f32 cubeVtx[] = {
-      //Position            //Normals
-      -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,
-       0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-       0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-       0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-      -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
-      -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f, 
+    // positions          // normals           // texture coords
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
+     0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  1.0f, 1.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f,  0.0f, -1.0f,  0.0f, 0.0f,
 
-      -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-       0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-      -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
-      -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   1.0f, 1.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f,  0.0f, 1.0f,   0.0f, 0.0f,
 
-      -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
-      -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f, -0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+    -0.5f, -0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f, -1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-       0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
+     0.5f,  0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  0.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  1.0f,  0.0f,  0.0f,  1.0f, 0.0f,
 
-      -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-       0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-      -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,
-      -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
+     0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 1.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+     0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  1.0f, 0.0f,
+    -0.5f, -0.5f,  0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 0.0f,
+    -0.5f, -0.5f, -0.5f,  0.0f, -1.0f,  0.0f,  0.0f, 1.0f,
 
-      -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-       0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-      -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,
-      -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f,
+     0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 1.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+     0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  1.0f, 0.0f,
+    -0.5f,  0.5f,  0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 0.0f,
+    -0.5f,  0.5f, -0.5f,  0.0f,  1.0f,  0.0f,  0.0f, 1.0f
   };
 
   // world space positions of our cubes
@@ -372,12 +372,14 @@ int main()
   glBindVertexArray(cubeVAO);
 
   // position attribute
-  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)0);
+  glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)0);
   glEnableVertexAttribArray(0);
   // normal attribute
-  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 6 * sizeof(float), (void*)(3 * sizeof(float)));
+  glVertexAttribPointer(1, 3, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(3 * sizeof(float)));
   glEnableVertexAttribArray(1);
-
+  //UVs
+  glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, 8 * sizeof(float), (void*)(6 * sizeof(float)));
+  glEnableVertexAttribArray(2);
 
   // second, configure the light's VAO (VBO stays the same; the vertices are the same for the light object which is also a 3D cube)
   unsigned int lightCubeVAO;
@@ -393,6 +395,10 @@ int main()
   //vec3 objectColor(1.0f, 0.5f, 0.3f);
   vec3 lightPos(0.0f, 0.0f, 1.0f);
   vec3 objectPos(0.0f, 0.0f, 0.0f);
+
+  Engine::Texture diffuseMap("data/textures/container2.png");
+  lightingShader.Use(); // don't forget to activate/use the shader before setting uniforms!
+  lightingShader.SetInt("material.diffuse", 0);
 
   //Render loop
   while (!glfwWindowShouldClose(window.GetGLFWHandle())) {
@@ -472,7 +478,7 @@ int main()
     lightingShader.SetVec3("light.specular", 1.0f, 1.0f, 1.0f);
 
     // view/projection transformations
-    mat4 projection = glm::perspective(glm::radians(camera.GetZoom()), (f32)WINDOW_WIDTH / (f32)WINDOW_HEIGHT, 0.1f, 100.0f);
+    mat4 projection = glm::perspective(glm::radians(camera.GetZoom()), (f32)window.GetWidth() / (f32)window.GetHeight(), 0.1f, 100.0f);
     mat4 view = camera.GetViewMatrix();
     lightingShader.SetMat4("projection", projection);
     lightingShader.SetMat4("view", view);
@@ -482,15 +488,19 @@ int main()
     for(auto& mat : materials) {
       //Set cube material
       Material cubeMaterial = mat.second;
-      lightingShader.SetVec3("material.ambient", cubeMaterial.ambient);
-      lightingShader.SetVec3("material.diffuse", cubeMaterial.diffuse);
-      lightingShader.SetVec3("material.specular", cubeMaterial.specular);
-      lightingShader.SetFloat("material.shininess", cubeMaterial.shininess * 128.0);
+      //lightingShader.SetVec3("material.ambient", cubeMaterial.ambient);
+      lightingShader.SetInt("material.diffuse", 0);
+      lightingShader.SetVec3("material.specular", 0.5f, 0.5f, 0.5f);// cubeMaterial.specular);
+      lightingShader.SetFloat("material.shininess", 64.0f);// cubeMaterial.shininess * 128.0);
 
       // world transformation
       model = mat4(1.0f);
       model = glm::translate(model, objectPos + vec3(2 * cubeCounter, 0.0f, 0.0f));
       lightingShader.SetMat4("model", model);
+
+      //Activate diffuse texture
+      glActiveTexture(GL_TEXTURE0);
+      glBindTexture(GL_TEXTURE_2D, diffuseMap.GetGLHandle());
 
       // render the cube
       glBindVertexArray(cubeVAO);

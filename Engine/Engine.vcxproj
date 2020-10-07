@@ -183,6 +183,8 @@
     <None Include="src\Gfx\shaders\Lighting.vert" />
     <None Include="src\Gfx\shaders\LightBox.frag" />
     <None Include="src\Gfx\shaders\LightBox.vert" />
+    <None Include="src\Gfx\shaders\MaterialLighting.frag" />
+    <None Include="src\Gfx\shaders\MaterialLighting.vert" />
     <None Include="src\Gfx\shaders\TextBox.frag" />
     <None Include="src\Gfx\shaders\TextBox.vert" />
   </ItemGroup>
