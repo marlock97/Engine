@@ -1,0 +1,10 @@
+3D Models:
+-Maya
+-3D Max
+-ZBrushCoreMini --> Free
+
+Textures:
+-Adobe Photoshop
+
+Sound clips:
+-SoundForge

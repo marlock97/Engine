@@ -14,3 +14,4 @@ ObjectManager
 ParticleSystem
 Profiler
 AnimationSystem
+EventSystem

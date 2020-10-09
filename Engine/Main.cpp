@@ -422,7 +422,7 @@ int main()
     //lightPos.x = cos(glfwGetTime());
     //lightPos.y = sin(glfwGetTime());
 
-    lightPos = camera.GetCamPosition() - camera.GetCamForward();;
+    lightPos = camera.GetCamPosition() - (camera.GetCamForward() * 2.0f);
     
     //lightColor.x = sin(glfwGetTime() * 2.0f);
     //lightColor.y = sin(glfwGetTime() * 0.7f);
