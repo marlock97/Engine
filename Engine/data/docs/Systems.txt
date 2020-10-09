@@ -2,8 +2,8 @@ StateManager
 Factory
 WindowManager
 InputManager
-PhysicsManager
-GraphicsManager
+PhysicsSystem + CollisionManager
+GraphicsSystem
 AudioManager
 ResourceManager
 AIManager
@@ -13,3 +13,4 @@ Editor
 ObjectManager
 ParticleSystem
 Profiler
+AnimationSystem

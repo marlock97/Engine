@@ -48,7 +48,7 @@ void main()
   if (texture(material.specular, TexCoords).r == 0.0) { //rough check for blackbox inside spec texture
       emission = texture(material.emission, TexCoords).rgb;
       /*some extra fun stuff with "time uniform" */
-      emission = texture(material.emission, TexCoords + vec2(0.0, deltaTime)).rgb;   /*moving */
+      emission = texture(material.emission, TexCoords + vec2(0.0, deltaTime)).rgb;  /*moving */
       emission = emission * (sin(deltaTime) * 0.5 + 0.5) * 2.0;                     /*fading */
   }
   FragColor = vec4((ambient + diffuse + specular + emission), 1.0);
