@@ -10,7 +10,7 @@
 \log  26/08/2020 -> Initial version
 */
 /************************************************************************/
-//#pragma comment(linker, "/SUBSYSTEM:windows /ENTRY:mainCRTStartup") //Remove console window, more info: https://learnopengl.com/Getting-started/Creating-a-window
+//STB_IMAGE_IMPLEMENTAION has to be defined EXACTLY 1 time before using stb.
 #define STB_IMAGE_IMPLEMENTATION
 #include <stb/stb_image.h>
 
