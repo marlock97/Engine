@@ -235,18 +235,17 @@ int main()
   //Graphics
   Engine::Shader lightBoxVertex("src/Gfx/shaders/LightBox.vert", Engine::Shader::ShaderType::vertex);
   Engine::Shader lightBoxFragment("src/Gfx/shaders/LightBox.frag", Engine::Shader::ShaderType::fragment);
-  //Engine::ShaderProgram lightingShader(lightingVertex.getUID(), lightingFragment.getUID());
-  Engine::ShaderProgram lightBoxShader;
-  lightBoxShader.AttachShader(lightBoxVertex);
-  lightBoxShader.AttachShader(lightBoxFragment);
-  lightBoxShader.Link();
+  Engine::ShaderProgram lightBoxShader(lightBoxVertex.GetGLHandle(), lightBoxFragment.GetGLHandle());
+  //lightBoxShader.AttachShader(lightBoxVertex);
+  //lightBoxShader.AttachShader(lightBoxFragment);
+  //lightBoxShader.Link();
 
   Engine::Shader lightingVertex("src/Gfx/shaders/Lighting.vert", Engine::Shader::ShaderType::vertex);
   Engine::Shader lightingFragment("src/Gfx/shaders/Lighting.frag", Engine::Shader::ShaderType::fragment);
-  Engine::ShaderProgram lightingShader;
-  lightingShader.AttachShader(lightingVertex);
-  lightingShader.AttachShader(lightingFragment);
-  lightingShader.Link();
+  Engine::ShaderProgram lightingShader(lightingVertex.GetGLHandle(), lightingFragment.GetGLHandle());
+  //lightingShader.AttachShader(lightingVertex);
+  //lightingShader.AttachShader(lightingFragment);
+  //lightingShader.Link();
 
   /*
   //Vertex data
@@ -472,6 +471,7 @@ int main()
     lightingShader.Use();
     lightingShader.SetVec3("viewPos", camera.GetCamPosition());
     lightingShader.SetVec3("light.position", lightPos);
+    lightingShader.SetFloat("deltaTime", glfwGetTime());
 
     //Set light
     glm::vec3 diffuseColor = lightColor * glm::vec3(0.5f);

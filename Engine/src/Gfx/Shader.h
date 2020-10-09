@@ -26,7 +26,7 @@ namespace Engine
     void SetShaderType(ShaderType shadertype, bool setGLHandle);
 
     std::string GetShaderString() const;
-    u32 GetShaderHandle() const;
+    u32 GetGLHandle() const;
 
   private:
     ShaderType shaderType_;

@@ -13,8 +13,8 @@ namespace Engine
   
   ShaderProgram::ShaderProgram(Shader vertexShader, Shader fragmentShader) {
     SetGLHandle();
-    AttachShader(vertexShader.getUID());
-    AttachShader(fragmentShader.getUID());
+    AttachShader(vertexShader.GetGLHandle());
+    AttachShader(fragmentShader.GetGLHandle());
     Link();
   }
 
@@ -35,8 +35,8 @@ namespace Engine
   }
 
   void ShaderProgram::AttachShader(const Shader& shader) {
-    glAttachShader(glHandle_, shader.GetShaderHandle());
-    shaders_.push_back(shader.GetShaderHandle());
+    glAttachShader(glHandle_, shader.GetGLHandle());
+    shaders_.push_back(shader.GetGLHandle());
   }
 
   void ShaderProgram::Link() {

@@ -93,7 +93,7 @@ namespace Engine
     return shaderString_;
   }
 
-  u32 Shader::GetShaderHandle() const {
-    return glHandle_; 
-  };
+  u32 Shader::GetGLHandle() const {
+    return glHandle_;
+  }
 }
