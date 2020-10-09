@@ -11,3 +11,5 @@ NetworkManager
 Serialization
 Editor
 ObjectManager
+ParticleSystem
+Profiler

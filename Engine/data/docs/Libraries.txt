@@ -1,0 +1,12 @@
+In use:
+opengl
+glut
+glfw
+glm
+stb
+jsoncpp
+
+Others:
+GUI: ImGui
+Sound: Fmod
+Physics: PhysX
