@@ -9,4 +9,6 @@ jsoncpp
 Others:
 GUI: ImGui
 Sound: Fmod
-Physics: PhysX
+Physics: NVIDIA PhysX
+Profiling: Intel VTune, IBM Rational Quantify
+Testing: Google Test Primer
