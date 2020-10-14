@@ -10,6 +10,8 @@ Others:
 GUI: ImGui
 Sound: Fmod
 Physics: NVIDIA PhysX
+
+Tools:
 Profiling: Intel VTune (Intel Parallel Studio), IBM Rational Quantify
 Memory profiler: IBM Rational Purify
 http://www-306.ibm.com/software/awdtools/purify
@@ -17,3 +19,6 @@ List of profilers:
 http://en.wikipedia.org/wiki/List_of_performance_analysis_tool
 Testing: Google Test Primer
 Diff: WinDiff
+Merge: WinMerge
+Hex Editor: HexEdit
+(http://www.expertcomsoft.com/index.html
