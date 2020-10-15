@@ -19,10 +19,10 @@
   \param name Type name name of the class
   \param pbaseType Rtti type pointer of the base class
 */
-Rtti::Rtti(const char* name, const Rtti* baseType) : baseType_(baseType) {
-  name_ = name;
+Rtti::Rtti(const char* name, const Rtti* baseType) : mBaseType(baseType) {
+  mName = name;
   //Remove class substring
-  name_ = name_.substr(name_.find_first_of(" ") + 1);
+  mName = mName.substr(mName.find_first_of(" ") + 1);
 }
 
 //! Name getter
@@ -30,7 +30,7 @@ Rtti::Rtti(const char* name, const Rtti* baseType) : baseType_(baseType) {
   \return The name of the class
 */
 const char* Rtti::getName() const {
-  return name_.c_str();
+  return mName.c_str();
 }
 
 //! Comparison method
@@ -53,7 +53,7 @@ bool Rtti::isDerived(const Rtti& otherType) const {
     if(it == &otherType) {
       return true;
     }
-    it  = it->baseType_;
+    it  = it->mBaseType;
   }
   return false;
 }

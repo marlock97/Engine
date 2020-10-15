@@ -33,8 +33,8 @@ namespace Engine
     u32 getUID() const;
 
   protected:
-    std::string name_;
-    u32 UID_ = 0;
+    u32 mUID = 0;
+    std::string mName;
     IBase();
     virtual ~IBase() = 0;
   };

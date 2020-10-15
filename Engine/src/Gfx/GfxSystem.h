@@ -9,14 +9,14 @@ namespace Engine
   class GfxSystem : public ISystem
   {
   RTTI_DECL;
+  private:
+    ShaderProgram* shaderProgram_ = nullptr;
+
   public:
     void Initialize();
     void Update();
     void Shutdown();
 
     void InitGLAD();
-
-  private:
-    ShaderProgram* shaderProgram_ = nullptr;
   };
 }

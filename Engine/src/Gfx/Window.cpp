@@ -9,31 +9,31 @@ namespace Engine
 
   void Window::CreateWindow() {
     //Create window
-    window_ = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Engine", nullptr, nullptr);
-    if (!window_) {
+    mWindow = glfwCreateWindow(WINDOW_WIDTH, WINDOW_HEIGHT, "Engine", nullptr, nullptr);
+    if (!mWindow) {
       std::cout << "Failed to create GLFW window." << std::endl;
       glfwTerminate();
     return;
     }
-    glfwMakeContextCurrent(window_);
+    glfwMakeContextCurrent(mWindow);
     //Adjust vieport on window resize
-    glfwSetFramebufferSizeCallback(window_, framebuffer_size_callback);
+    glfwSetFramebufferSizeCallback(mWindow, framebuffer_size_callback);
   }
   
   u32 Window::GetWidth() const {
-    return width_;
+    return mWidth;
   }
 
   void Window::setWidth(u32 width) {
-    width_ = width;
+    mWidth = width;
   }
 
   u32 Window::GetHeight() const {
-    return height_;
+    return mHeight;
   }
 
   void Window::setHeight(u32 height) {
-    height_ = height;
+    mHeight = height;
   }
 }
 

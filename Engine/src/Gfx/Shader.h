@@ -19,6 +19,12 @@ namespace Engine
   {
     RTTI_DECL;    
     enum class ShaderType { vertex, fragment, geometry, typeCount };
+  private:
+    u32 mGLHandle = 0;
+    ShaderType mShaderType;
+    std::string mShaderString;
+    std::string mFilename;
+
   public:
     Shader(const char* filename, ShaderType shaderType);
     const char* ReadFile(std::string filename);
@@ -27,11 +33,5 @@ namespace Engine
 
     std::string GetShaderString() const;
     u32 GetGLHandle() const;
-
-  private:
-    ShaderType shaderType_;
-    u32 glHandle_ = 0;
-    std::string shaderString_;
-    std::string filename_;
   };
 }

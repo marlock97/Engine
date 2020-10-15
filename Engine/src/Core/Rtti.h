@@ -26,8 +26,8 @@ public:
   bool isDerived(const Rtti& otherType) const;
 
 private:
-  std::string name_;
-  const Rtti* baseType_ = nullptr;
+  std::string mName;
+  const Rtti* mBaseType = nullptr;
 };
 
 #define RTTI_DECL											\

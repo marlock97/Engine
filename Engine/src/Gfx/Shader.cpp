@@ -21,7 +21,7 @@ namespace Engine
 {
   RTTI_IMPL(Shader, IBase);
 
-  Shader::Shader(const char* filename, ShaderType shaderType = ShaderType::vertex) : filename_(filename), shaderType_(shaderType) {
+  Shader::Shader(const char* filename, ShaderType shaderType = ShaderType::vertex) : mFilename(filename), mShaderType(shaderType) {
     SetShaderType(shaderType, true);
     ReadFile(filename);
     Compile();
@@ -31,29 +31,29 @@ namespace Engine
     std::ifstream shader(filename);
 
     if (shader.is_open()) {
-      getline(shader, shaderString_, '\0');
+      getline(shader, mShaderString, '\0');
     }
     shader.close();
 
-    return shaderString_.c_str();
+    return mShaderString.c_str();
   }
 
   void Shader::Compile() {
     const char* buffer;
-    if(shaderString_.empty())
-      buffer = ReadFile(filename_);
+    if(mShaderString.empty())
+      buffer = ReadFile(mFilename);
     else
-      buffer = shaderString_.c_str();
+      buffer = mShaderString.c_str();
 
-    glShaderSource(glHandle_, 1, &buffer, NULL);
-    glCompileShader(glHandle_);
+    glShaderSource(mGLHandle, 1, &buffer, NULL);
+    glCompileShader(mGLHandle);
     //Check vertex shader compilation
     int  success;
     char infoLog[512];
-    glGetShaderiv(glHandle_, GL_COMPILE_STATUS, &success);
+    glGetShaderiv(mGLHandle, GL_COMPILE_STATUS, &success);
     if (!success) {
-      glGetShaderInfoLog(glHandle_, 512, NULL, infoLog);
-      switch (shaderType_) {
+      glGetShaderInfoLog(mGLHandle, 512, NULL, infoLog);
+      switch (mShaderType) {
       case ShaderType::vertex:
         std::cout << "ERROR::SHADER::VERTEX::COMPILATION_FAILED\n" << infoLog << std::endl;
         break;
@@ -70,18 +70,18 @@ namespace Engine
   }
   
   void Shader::SetShaderType(ShaderType shaderType, bool createGLHandle) {
-    shaderType_ = shaderType;
+    mShaderType = shaderType;
 
     if(createGLHandle) {
       switch (shaderType) {
       case ShaderType::vertex:
-        glHandle_ = glCreateShader(GL_VERTEX_SHADER);
+        mGLHandle = glCreateShader(GL_VERTEX_SHADER);
         break;
       case ShaderType::fragment:
-        glHandle_ = glCreateShader(GL_FRAGMENT_SHADER);
+        mGLHandle = glCreateShader(GL_FRAGMENT_SHADER);
         break;
       case ShaderType::geometry:
-        glHandle_ = glCreateShader(GL_GEOMETRY_SHADER);
+        mGLHandle = glCreateShader(GL_GEOMETRY_SHADER);
         break;
       default:
         return;
@@ -90,10 +90,10 @@ namespace Engine
   }
 
   std::string Shader::GetShaderString() const {
-    return shaderString_;
+    return mShaderString;
   }
 
   u32 Shader::GetGLHandle() const {
-    return glHandle_;
+    return mGLHandle;
   }
 }

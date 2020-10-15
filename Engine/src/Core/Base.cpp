@@ -22,13 +22,13 @@ namespace Engine
   }
 
   std::string IBase::getName() {
-    return name_;
+    return mName;
   }
   void IBase::setName(const char* name) {
-    name_ = name;
+    mName = name;
   }
   u32 IBase::getUID() const {
-    return UID_;
+    return mUID;
   }
 
   bool IBase::isExactly(const Rtti& otherType) const {

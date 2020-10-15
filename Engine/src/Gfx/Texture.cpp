@@ -8,6 +8,7 @@
 \brief  Texture class declaration.
 
 \log    24/09/2020 -> Initial version.
+        15/10/2020 -> Changed member variable layout and naming.
 */
 /************************************************************************/
 #include <iostream>
@@ -21,8 +22,8 @@ namespace Engine
 
   Texture::Texture(std::string filename) {
     //Load and create texture
-    glGenTextures(1, &glHandle_);
-    glBindTexture(GL_TEXTURE_2D, glHandle_);
+    glGenTextures(1, &mGLHandle);
+    glBindTexture(GL_TEXTURE_2D, mGLHandle);
 
     // set the texture wrapping/filtering options (on the currently bound texture object)
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_REPEAT);
@@ -31,17 +32,17 @@ namespace Engine
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
 
     //Load the data
-    unsigned char* data = stbi_load(filename.c_str(), &width_, &height_, &nrChannels_, 0);
+    unsigned char* data = stbi_load(filename.c_str(), &mWidth, &mHeight, &mNRChannels, 0);
 
-    if (nrChannels_ == 1)
-      type_ = GL_RED;
-    else if (nrChannels_ == 3)
-      type_ = GL_RGB;
-    else if (nrChannels_ == 4)
-      type_ = GL_RGBA;
+    if (mNRChannels == 1)
+      mType = GL_RED;
+    else if (mNRChannels == 3)
+      mType = GL_RGB;
+    else if (mNRChannels == 4)
+      mType = GL_RGBA;
 
     if (data) {
-      glTexImage2D(GL_TEXTURE_2D, 0, type_, width_, height_, 0, type_, GL_UNSIGNED_BYTE, data);
+      glTexImage2D(GL_TEXTURE_2D, 0, mType, mWidth, mHeight, 0, mType, GL_UNSIGNED_BYTE, data);
       glGenerateMipmap(GL_TEXTURE_2D);
     }
     else {

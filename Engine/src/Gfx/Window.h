@@ -13,6 +13,11 @@ namespace Engine
 	class Window : public IBase
 	{
 	RTTI_DECL;
+	private:
+		u32 mWidth = WINDOW_HEIGHT;
+		u32 mHeight = WINDOW_HEIGHT;
+		GLFWwindow* mWindow = nullptr;
+
 	public:
 		void CreateWindow();
 		//void ResizeWindow(u32 width = WINDOW_WIDTH, u32 height = WINDOW_HEIGHT);
@@ -22,10 +27,6 @@ namespace Engine
 		u32 GetHeight() const;
 		void setHeight(u32 height);
 
-		GLFWwindow* GetGLFWHandle() { return window_; };
-	private:
-		GLFWwindow* window_ = nullptr;
-		u32 width_ = WINDOW_HEIGHT;
-		u32 height_ = WINDOW_HEIGHT;
+		GLFWwindow* GetGLFWHandle() { return mWindow; };
 	};
 }
