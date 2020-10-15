@@ -34,9 +34,11 @@
 #include "src/Gfx/Camera.h"
 
 /*TODO:
- *   -Add Get/Set to Texture class.
- *   -Add Get/Set to Shader class.
- *   -Add header comment to Shader.h & Shader.cpp 
+ *  -Add Get/Set to Texture class.
+ *  -Add Get/Set to Shader class.
+ *  -Add header comment to Shader.h & Shader.cpp
+ *  -Add Vertex, Mesh and Model clases
+ *  -Add different types of light
  */
 
 //Time
