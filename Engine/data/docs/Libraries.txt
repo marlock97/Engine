@@ -22,3 +22,6 @@ Diff: WinDiff
 Merge: WinMerge
 Hex Editor: HexEdit
 (http://www.expertcomsoft.com/index.html
+
+Videos:
+https://www.gdcvault.com/free
