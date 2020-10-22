@@ -143,8 +143,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="Main.cpp" />
-    <ClCompile Include="src\Application\Application.cpp" />
+    <ClCompile Include="src\Core\Application.cpp" />
     <ClCompile Include="src\Core\Base.cpp" />
     <ClCompile Include="src\Core\Rtti.cpp" />
     <ClCompile Include="src\Core\System.cpp" />
@@ -157,11 +156,12 @@
     <ClCompile Include="src\Gfx\Texture.cpp" />
     <ClCompile Include="src\Gfx\Vertex.cpp" />
     <ClCompile Include="src\Gfx\Window.cpp" />
+    <ClCompile Include="src\Main.cpp" />
     <ClCompile Include="src\Utils\Serialization\ISerializer.cpp" />
     <ClCompile Include="src\Utils\Utils.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Application\Application.h" />
+    <ClInclude Include="src\Core\Application.h" />
     <ClInclude Include="src\Core\Base.h" />
     <ClInclude Include="src\Core\DataTypes.h" />
     <ClInclude Include="src\Core\Rtti.h" />

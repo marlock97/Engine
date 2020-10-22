@@ -26,14 +26,22 @@
 #include <fstream>
 #include <map>
 
-#include "src/Gfx/GfxSystem.h"
-#include "src/Gfx/Shader.h"
-#include "src/Gfx/ShaderProgram.h"
-#include "src/Gfx/Window.h"
-#include "src/Gfx/Texture.h"
-#include "src/Gfx/Camera.h"
-//Check commit.
+#include "Gfx/GfxSystem.h"
+#include "Gfx/Shader.h"
+#include "Gfx/ShaderProgram.h"
+#include "Gfx/Window.h"
+#include "Gfx/Texture.h"
+#include "Gfx/Camera.h"
+
 /*TODO:
+ *  -Rename project.
+ *  -Change build configuration to dll.
+ *  -Prepare for multiple platforms.
+ *  -Move main to EntryPoint.
+ *  -Change libs to a per project basis.
+ *  -Add Logger.
+ *  -Create Application class.
+ *  -Create Event System.
  *  -Add Get/Set to Texture class.
  *  -Add Get/Set to Shader class.
  *  -Add header comment to Shader.h & Shader.cpp

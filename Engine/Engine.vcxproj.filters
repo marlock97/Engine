@@ -16,9 +16,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{b94b920b-6bbb-44b1-b008-e6287bed28e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Application">
-      <UniqueIdentifier>{f3c7218d-9037-43c4-9137-9e3a6b742c2a}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Gfx">
       <UniqueIdentifier>{7f0d748c-71d2-42f8-a659-ef3e6dd9f91d}</UniqueIdentifier>
     </Filter>
@@ -39,9 +36,6 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="src\Application\Application.cpp">
-      <Filter>src\Application</Filter>
-    </ClCompile>
     <ClCompile Include="src\Gfx\Window.cpp">
       <Filter>src\Gfx</Filter>
     </ClCompile>
@@ -56,9 +50,6 @@
     </ClCompile>
     <ClCompile Include="src\Core\Rtti.cpp">
       <Filter>src\Core</Filter>
-    </ClCompile>
-    <ClCompile Include="Main.cpp">
-      <Filter>src</Filter>
     </ClCompile>
     <ClCompile Include="src\Core\System.cpp">
       <Filter>src\Core</Filter>
@@ -87,11 +78,14 @@
     <ClCompile Include="src\Utils\Serialization\ISerializer.cpp">
       <Filter>src\Utils\Serialization</Filter>
     </ClCompile>
+    <ClCompile Include="src\Core\Application.cpp">
+      <Filter>src\Core</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Main.cpp">
+      <Filter>src</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="src\Application\Application.h">
-      <Filter>src\Application</Filter>
-    </ClInclude>
     <ClInclude Include="src\Gfx\Window.h">
       <Filter>src\Gfx</Filter>
     </ClInclude>
@@ -136,6 +130,9 @@
     </ClInclude>
     <ClInclude Include="src\Gfx\Camera.h">
       <Filter>src\Gfx</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Core\Application.h">
+      <Filter>src\Core</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
