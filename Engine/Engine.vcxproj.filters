@@ -16,9 +16,6 @@
     <Filter Include="src">
       <UniqueIdentifier>{b94b920b-6bbb-44b1-b008-e6287bed28e9}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\Gfx">
-      <UniqueIdentifier>{7f0d748c-71d2-42f8-a659-ef3e6dd9f91d}</UniqueIdentifier>
-    </Filter>
     <Filter Include="src\Utils">
       <UniqueIdentifier>{ad405e85-f65e-4311-bdce-96d1bf8b3f14}</UniqueIdentifier>
     </Filter>
@@ -30,6 +27,9 @@
     </Filter>
     <Filter Include="src\Utils\Serialization\JSON">
       <UniqueIdentifier>{c65598dc-02fe-4c95-8cad-28fa50a87ab2}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\Gfx">
+      <UniqueIdentifier>{7f0d748c-71d2-42f8-a659-ef3e6dd9f91d}</UniqueIdentifier>
     </Filter>
     <Filter Include="src\Gfx\shaders">
       <UniqueIdentifier>{275def80-a144-4fbc-a07c-2ef5c04fed4b}</UniqueIdentifier>
