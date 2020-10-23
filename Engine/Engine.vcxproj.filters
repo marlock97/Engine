@@ -34,6 +34,9 @@
     <Filter Include="src\Gfx\shaders">
       <UniqueIdentifier>{275def80-a144-4fbc-a07c-2ef5c04fed4b}</UniqueIdentifier>
     </Filter>
+    <Filter Include="src\Debug">
+      <UniqueIdentifier>{508e49e5-2923-400c-b5f4-983bce819962}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Gfx\Window.cpp">
@@ -84,6 +87,9 @@
     <ClCompile Include="src\Main.cpp">
       <Filter>src</Filter>
     </ClCompile>
+    <ClCompile Include="src\Debug\Log.cpp">
+      <Filter>src\Debug</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Gfx\Window.h">
@@ -133,6 +139,9 @@
     </ClInclude>
     <ClInclude Include="src\Core\Application.h">
       <Filter>src\Core</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Debug\Log.h">
+      <Filter>src\Debug</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
