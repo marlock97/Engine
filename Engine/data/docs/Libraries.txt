@@ -26,3 +26,6 @@ Hex Editor: 		HexEdit
 Videos:
 https://www.gdcvault.com/free
 https://www.nngroup.com/videos/usability-heuristic-system-status/
+
+High-Performance Image Processing:
+https://docs.nvidia.com/gameworks/content/technologies/mobile/native_android_imageprocessing.htm
