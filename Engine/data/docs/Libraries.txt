@@ -22,6 +22,8 @@ Diff: 			WinDiff
 Merge: 			WinMerge
 Hex Editor: 		HexEdit
 			(http://www.expertcomsoft.com/index.html
+Logging:		Windows: Event Log
+			Linux: syslog
 
 Videos:
 https://www.gdcvault.com/free
